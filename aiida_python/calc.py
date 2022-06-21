@@ -39,6 +39,11 @@ class CalcJobPython(CalcJob):
 
         import inspect
         source_code, _ = inspect.getsourcelines(run_python)
+        """
+        Unindent the source code
+        
+        TODO: Do it properly
+        """
         source_code = [ l[4:-1] for l in source_code ]
         source_code = ['import os',
                        'os.system("mkdir ihyh")',

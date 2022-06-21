@@ -72,6 +72,7 @@ class CalcJobPython(CalcJob):
         This works only data types with value attribute
 
         TODO add support for others
+        o linja mute mute ...
         """
         data = { inp: {Int: lambda x: getattr(x, "value"),
                        Float: lambda x: getattr(x, "value"),

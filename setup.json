@@ -27,7 +27,8 @@
     "reentry_register": true,
     "install_requires": [
         "aiida-core>=2.0.0",
-	"pytest"
+	"pytest",
+	"pgtest"
     ],
     "extras_require": {
         "testing": [

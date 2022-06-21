@@ -85,7 +85,7 @@ class CalcJobPython(CalcJob):
                                                 for inp in self.inputs if inp not in ('metadata',
                                                                                       'code') }
         import pickle
-        with folder.open('.__data_mia.inpkl', 'wb') as fhandle:
+        with folder.open(INFILE, 'wb') as fhandle:
             pickle.dump(data, fhandle)
 
         codeinfo = datastructures.CodeInfo()

@@ -30,6 +30,21 @@ class CalcJobPython(CalcJob):
         spec.inputs['metadata']['options']['input_filename'].default = '__noone_will_ever_use_this_name.input'
         spec.inputs['metadata']['options']['output_filename'].default = '__noone_will_ever_use_this_name.output'
 
+    def serialize(self, fhandle):
+        """
+        This works only data types with value attribute
+
+        TODO add support for others
+        o linja mute mute ...
+        """
+        data = { inp: {Int: lambda x: getattr(x, "value"),
+                       Float: lambda x: getattr(x, "value"),
+                       Str: lambda x: getattr(x, "value")}[type(self.inputs[inp])](self.inputs[inp]) \
+                                                for inp in self.inputs if inp not in ('metadata',
+                                                                                      'code') }
+        import pickle
+        pickle.dump(data, fhandle)
+
     def prepare_for_submission(self, folder):
 
         run_python = getattr(self, "run_python", None)
@@ -73,20 +88,8 @@ class CalcJobPython(CalcJob):
             if inp in ('metadata', 'code'): continue
             data[inp] = self.inputs[inp].value
 
-        """
-        This works only data types with value attribute
-
-        TODO add support for others
-        o linja mute mute ...
-        """
-        data = { inp: {Int: lambda x: getattr(x, "value"),
-                       Float: lambda x: getattr(x, "value"),
-                       Str: lambda x: getattr(x, "value")}[type(self.inputs[inp])](self.inputs[inp]) \
-                                                for inp in self.inputs if inp not in ('metadata',
-                                                                                      'code') }
-        import pickle
         with folder.open(INFILE, 'wb') as fhandle:
-            pickle.dump(data, fhandle)
+            self.serialize(fhandle)
 
         codeinfo = datastructures.CodeInfo()
         codeinfo.code_uuid = self.inputs.code.uuid

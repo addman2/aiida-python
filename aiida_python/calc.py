@@ -30,18 +30,25 @@ class CalcJobPython(CalcJob):
         spec.inputs['metadata']['options']['input_filename'].default = '__noone_will_ever_use_this_name.input'
         spec.inputs['metadata']['options']['output_filename'].default = '__noone_will_ever_use_this_name.output'
 
+        from aiida_python import serializers
+        cls.serializers = map( lambda x: getattr(serializers, x),
+                               [ "SerializerInt",
+                                 "SerializerFloat",
+                                 "SerializerStr" ] )
+
     def serialize(self, fhandle):
         """
-        This works only data types with value attribute
+        """
 
-        TODO add support for others
+        def serialize_this(obj):
+            for s in self.serializers:
+                obj = s(obj)
+            return obj
+
+        """
         o linja mute mute ...
         """
-        data = { inp: {Int: lambda x: getattr(x, "value"),
-                       Float: lambda x: getattr(x, "value"),
-                       Str: lambda x: getattr(x, "value")}[type(self.inputs[inp])](self.inputs[inp]) \
-                                                for inp in self.inputs if inp not in ('metadata',
-                                                                                      'code') }
+        data = { inp: serialize_this(self.inputs[inp]) for inp in self.inputs if inp not in ('metadata', 'code') }
         import pickle
         pickle.dump(data, fhandle)
 

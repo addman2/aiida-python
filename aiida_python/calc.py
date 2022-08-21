@@ -12,7 +12,7 @@ OUTFILE = ".__data_mia.outpkl"
 class NoRunPythonMethod(Exception):
     pass
 
-cpythonlass CalcJobPython(CalcJob):
+class CalcJobPython(CalcJob):
     """
     AiiDA Python calculation class
     """

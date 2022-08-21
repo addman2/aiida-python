@@ -29,13 +29,21 @@ class ParserPython(Parser):
 
         output_filename = self.node.get_option("output_filename")
         files_retrieved = self.retrieved.list_object_names()
+        serializers = self.node.get_option("serializers")
+
+        import pkg_resources
+        def deserialize_this(obj):
+            for entry_point in pkg_resources.iter_entry_points('aiida_python.serializers'):
+                obj = entry_point.load().i()(obj)
+            return obj
 
         with self.retrieved.open(OUTFILE, 'rb') as handle:
             import pickle
             everything = pickle.load(handle)
             for key, value in everything.items():
-                save_output = {int: Int,
-                               float: Float}[type(value)](value)
+                save_output = deserialize_this(value)
+                with open("/home/addman/f", "w") as fhandle:
+                    fhandle.write(f"{key} {save_output}")
                 self.out(key, save_output)
 
         return ExitCode(0)

@@ -12,7 +12,7 @@ OUTFILE = ".__data_mia.outpkl"
 class NoRunPythonMethod(Exception):
     pass
 
-class CalcJobPython(CalcJob):
+cpythonlass CalcJobPython(CalcJob):
     """
     AiiDA Python calculation class
     """
@@ -31,10 +31,10 @@ class CalcJobPython(CalcJob):
         spec.inputs['metadata']['options']['output_filename'].default = '__noone_will_ever_use_this_name.output'
 
         from aiida_python import serializers
-        cls.serializers = map( lambda x: getattr(serializers, x),
+        cls.serializers = list(map( lambda x: getattr(serializers, x),
                                [ "SerializerInt",
                                  "SerializerFloat",
-                                 "SerializerStr" ] )
+                                 "SerializerStr" ] ))
 
     def serialize(self, fhandle):
         """

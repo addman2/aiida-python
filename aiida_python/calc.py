@@ -26,9 +26,18 @@ class CalcJobPython(CalcJob):
             'num_mpiprocs_per_machine': 1,
         }
 
+        spec.input('metadata.options.serializers',
+                   valid_type=list,
+                   required=False,
+                   help='Dont leave this empty')
+
         spec.inputs['metadata']['options']['parser_name'].default = 'aiida_python.parser'
         spec.inputs['metadata']['options']['input_filename'].default = '__noone_will_ever_use_this_name.input'
         spec.inputs['metadata']['options']['output_filename'].default = '__noone_will_ever_use_this_name.output'
+
+        spec.inputs['metadata']['options']['serializers'].default = ['int',
+                                                                     'float',
+                                                                     'str']
 
         from aiida_python import serializers
         cls.serializers = list(map( lambda x: getattr(serializers, x),
@@ -40,9 +49,10 @@ class CalcJobPython(CalcJob):
         """
         """
 
+        import pkg_resources
         def serialize_this(obj):
-            for s in self.serializers:
-                obj = s(obj)
+            for entry_point in pkg_resources.iter_entry_points('aiida_python.serializers'):
+                obj = entry_point.load()(obj)
             return obj
 
         """

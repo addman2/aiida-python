@@ -73,15 +73,19 @@ class CalcJobPython(CalcJob):
         source_code, _ = inspect.getsourcelines(run_python)
         """
         Unindent the source code
-        
+
         TODO: Do it properly
+
+        There is indent of the code the 'if True:'
+        statement fixes unexpected indent.
         """
-        source_code = [ l[4:-1] for l in source_code ]
+        #source_code = [ l[4:-1] for l in source_code ]
         source_code = ['import os',
                        'os.system("mkdir ihyh")',
                        'os.system("echo \'from .ihyh import IHideYouHolder\' > ihyh/__init__.py")',
                        'os.system("cp ihyh.py ihyh")',
-                       'from ihyh import IHideYouHolder'] + source_code
+                       'from ihyh import IHideYouHolder',
+                       'if True:'] + source_code
 
         arguments = f'infile="{INFILE}", outfile="{OUTFILE}"'
         source_code.append(f'run_python(IHideYouHolder({arguments}))')

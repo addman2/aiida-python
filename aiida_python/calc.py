@@ -39,12 +39,6 @@ class CalcJobPython(CalcJob):
                                                                      'float',
                                                                      'str']
 
-        from aiida_python import serializers
-        cls.serializers = list(map( lambda x: getattr(serializers, x),
-                               [ "SerializerInt",
-                                 "SerializerFloat",
-                                 "SerializerStr" ] ))
-
     def serialize(self, fhandle):
         """
         """

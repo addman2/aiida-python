@@ -46,7 +46,7 @@ class CalcJobPython(CalcJob):
         import pkg_resources
         def serialize_this(obj):
             for entry_point in pkg_resources.iter_entry_points('aiida_python.serializers'):
-                obj = entry_point.load()(obj)
+                obj = entry_point.load().serialize(obj)
             return obj
 
         """

@@ -12,13 +12,13 @@ def test_SerializerInt():
     from aiida_python import SerializerInt
 
     obj = Int(2)
-    ans = SerializerInt(obj)
+    ans = SerializerInt.serialize(obj)
 
     assert isinstance(ans, int)
     assert ans == 2
 
     obj = Float(2)
-    ans = SerializerInt(obj)
+    ans = SerializerInt.serialize(obj)
 
     assert ans is obj
 
@@ -30,13 +30,13 @@ def test_SerializerFloat():
     from aiida_python import SerializerFloat
 
     obj = Float(2)
-    ans = SerializerFloat(obj)
+    ans = SerializerFloat.serialize(obj)
 
     assert isinstance(ans, float)
     assert ans == 2
 
     obj = Int(2)
-    ans = SerializerFloat(obj)
+    ans = SerializerFloat.serialize(obj)
 
     assert ans is obj
 
@@ -50,13 +50,13 @@ def test_SerializerStr():
     message = "Anitta hassuwas"
 
     obj = Str(message)
-    ans = SerializerStr(obj)
+    ans = SerializerStr.serialize(obj)
 
     assert isinstance(ans, str)
     assert ans == message
 
     obj = Int(2)
-    ans = SerializerStr(obj)
+    ans = SerializerStr.serialize(obj)
 
     assert ans is obj
 
@@ -68,13 +68,13 @@ def test_de_SerializerInt():
     from aiida_python import SerializerInt
 
     obj = int(42)
-    ans = SerializerInt.i()(obj)
+    ans = SerializerInt.deserialize(obj)
 
     assert isinstance(ans, Int)
     assert ans == 42
 
     obj = float(42)
-    ans = SerializerInt.i()(obj)
+    ans = SerializerInt.deserialize(obj)
 
     assert isinstance(ans, float)
     assert ans == 42
@@ -87,13 +87,13 @@ def test_de_SerializerFloat():
     from aiida_python import SerializerFloat
 
     obj = float(2)
-    ans = SerializerFloat.i()(obj)
+    ans = SerializerFloat.deserialize(obj)
 
     assert isinstance(ans, Float)
     assert ans == 2
 
     obj = int(2)
-    ans = SerializerFloat.i()(obj)
+    ans = SerializerFloat.deserialize(obj)
 
     assert isinstance(ans, int)
     assert ans == 2
@@ -108,13 +108,13 @@ def test_de_SerializerStr():
     message = "Anitta hassuwas"
 
     obj = str(message)
-    ans = SerializerStr.i()(obj)
+    ans = SerializerStr.deserialize(obj)
 
     assert isinstance(ans, Str)
     assert ans == message
 
     obj = int(2)
-    ans = SerializerStr.i()(obj)
+    ans = SerializerStr.deserialize(obj)
 
     assert isinstance(ans, int)
     assert ans == 2

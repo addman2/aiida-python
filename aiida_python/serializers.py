@@ -1,59 +1,29 @@
 # -*- coding: utf-8 -*-
 
+from aiida.orm import Int
+
 class Serializer():
 
     pass
 
 class SerializerInt(Serializer):
 
-    from aiida.orm import Int
-    philemon = Int
-    baukis = int
+    @classmethod
+    def baucis(cls):
+        return int
+
+    @classmethod
+    def philemon(cls):
+        return Int
 
     @classmethod
     def serialize(cls, obj):
-        if isinstance(obj, cls.philemon):
+        if isinstance(obj, cls.philemon()):
             return obj.value
         return obj
 
     @classmethod
     def deserialize(cls, obj):
-        if isinstance(obj, cls.baukis):
-            return cls.philemon(obj)
-        return obj
-
-class SerializerFloat(Serializer):
-
-    from aiida.orm import Float
-    philemon = Float
-    baukis = float
-
-    @classmethod
-    def serialize(cls, obj):
-        if isinstance(obj, cls.philemon):
-            return obj.value
-        return obj
-
-    @classmethod
-    def deserialize(cls, obj):
-        if isinstance(obj, cls.baukis):
-            return cls.philemon(obj)
-        return obj
-
-class SerializerStr(Serializer):
-
-    from aiida.orm import Str
-    philemon = Str
-    baukis = str
-
-    @classmethod
-    def serialize(cls, obj):
-        if isinstance(obj, cls.philemon):
-            return obj.value
-        return obj
-
-    @classmethod
-    def deserialize(cls, obj):
-        if isinstance(obj, cls.baukis):
+        if isinstance(obj, cls.baukis()):
             return cls.philemon(obj)
         return obj

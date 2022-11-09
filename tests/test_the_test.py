@@ -39,3 +39,43 @@ def test_the_test_bad_indent(aiida_local_code_factory, clear_database):
     result = run(calculation, **inputs)
 
     assert result['ovca'] == 12
+
+def test_the_test_numpy_without_numpy(aiida_local_code_factory, clear_database):
+    from aiida.plugins import CalculationFactory
+    from aiida.engine import run
+    from aiida.orm import (Int,
+                           List)
+
+    executable = 'python3'
+    entry_point = 'test.calc_numpy_without_numpy'
+
+    code = aiida_local_code_factory(entry_point=entry_point, executable=executable)
+    calculation = CalculationFactory(entry_point)
+
+    inputs = { 'code': code,
+               'koza': List([1,2]),
+               'krava': Int(3)}
+
+    result = run(calculation, **inputs)
+
+    assert result['ovca'] == 9
+
+def test_the_test_with_error(aiida_local_code_factory, clear_database):
+    from aiida.plugins import CalculationFactory
+    from aiida.engine import run
+    from aiida.orm import (Int,
+                           List)
+
+    executable = 'python3'
+    entry_point = 'test.calc_error'
+
+    code = aiida_local_code_factory(entry_point=entry_point, executable=executable)
+    calculation = CalculationFactory(entry_point)
+
+    inputs = { 'code': code,
+               'koza': List([1,2]),
+               'krava': Int(3)}
+
+    result = run(calculation, **inputs)
+
+    assert result['ovca'] == 9

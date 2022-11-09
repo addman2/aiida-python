@@ -43,7 +43,7 @@ class ParserPython(Parser):
             for key, value in everything.items():
                 save_output = deserialize_this(value)
                 with open("/home/addman/f", "w") as fhandle:
-                    fhandle.write(f"{key} {save_output}")
+                    fhandle.write(f"{key} {type(save_output)}")
                 self.out(key, save_output)
 
         return ExitCode(0)

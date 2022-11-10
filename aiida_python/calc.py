@@ -38,7 +38,8 @@ class CalcJobPython(CalcJob):
         spec.inputs['metadata']['options']['serializers'].default = ['int',
                                                                      'float',
                                                                      'str',
-                                                                     'list']
+                                                                     'list',
+                                                                     'arraydata',]
 
     def serialize(self, fhandle):
         """

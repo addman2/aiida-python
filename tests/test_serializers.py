@@ -28,7 +28,7 @@ def test_SerializerInt():
 
     ans = SerializerInt.deserialize(2.0)
 
-    assert ans is 2.0
+    assert ans == 2.0
 
 def test_SerializerFloat():
 
@@ -54,7 +54,7 @@ def test_SerializerFloat():
 
     ans = SerializerFloat.deserialize(2)
 
-    assert ans is 2
+    assert ans == 2
 
 def test_SerializerStr():
 
@@ -81,7 +81,7 @@ def test_SerializerStr():
 
     ans = SerializerStr.deserialize(2)
 
-    assert ans is 2
+    assert ans == 2
 
 def test_SerializerList():
 
@@ -111,5 +111,37 @@ def test_SerializerList():
     assert isinstance(ans, List)
 
     ans = SerializerList.deserialize(2)
+
+    assert ans == 2
+
+def test_SerializerArrayData():
+
+    import functools
+    import numpy as np
+
+    from aiida.orm import Int
+    from aiida.orm import ArrayData
+
+    from aiida_python import SerializerArrayData
+
+    a = np.array([[1,2],[3,4]])
+    obj = ArrayData()
+    obj.set_array("only_one", a)
+    ans = SerializerArrayData.serialize(obj)
+
+    assert isinstance(ans, np.ndarray)
+
+    assert np.sum(ans - a) < 0.0001
+
+    obj = Int(2)
+    ans = SerializerArrayData.serialize(obj)
+
+    assert ans is obj
+
+    ans = SerializerArrayData.deserialize(a)
+
+    assert isinstance(ans, ArrayData)
+
+    ans = SerializerArrayData.deserialize(2)
 
     assert ans is 2

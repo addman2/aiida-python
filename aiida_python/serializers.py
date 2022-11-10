@@ -1,6 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from aiida.orm import (Int, Float, Str, List)
+from aiida.orm import (Int,
+                       Float,
+                       Str,
+                       List,
+                       ArrayData)
+import numpy as np
 
 class Serializer():
 
@@ -92,4 +97,28 @@ class SerializerList(Serializer):
     def deserialize(cls, obj):
         if isinstance(obj, cls.baukis()):
             return cls.philemon()(obj)
+        return obj
+
+class SerializerArrayData(Serializer):
+
+    @classmethod
+    def baukis(cls):
+        return np.ndarray
+
+    @classmethod
+    def philemon(cls):
+        return ArrayData
+
+    @classmethod
+    def serialize(cls, obj):
+        if isinstance(obj, cls.philemon()):
+            return obj.get_array("only_one")
+        return obj
+
+    @classmethod
+    def deserialize(cls, obj):
+        if isinstance(obj, cls.baukis()):
+            ret =  cls.philemon()()
+            ret.set_array("only_one", obj)
+            return ret
         return obj

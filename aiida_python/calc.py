@@ -37,7 +37,9 @@ class CalcJobPython(CalcJob):
 
         spec.inputs['metadata']['options']['serializers'].default = ['int',
                                                                      'float',
-                                                                     'str']
+                                                                     'str',
+                                                                     'list',
+                                                                     'arraydata',]
 
     def serialize(self, fhandle):
         """
@@ -46,7 +48,8 @@ class CalcJobPython(CalcJob):
         import pkg_resources
         def serialize_this(obj):
             for entry_point in pkg_resources.iter_entry_points('aiida_python.serializers'):
-                obj = entry_point.load().serialize(obj)
+                if entry_point.name in self.inputs['metadata']['options']['serializers']:
+                    obj = entry_point.load().serialize(obj)
             return obj
 
         """
@@ -54,6 +57,8 @@ class CalcJobPython(CalcJob):
         """
         data = { inp: serialize_this(self.inputs[inp]) for inp in self.inputs if inp not in ('metadata', 'code') }
         import pickle
+        with open("/home/addman/g", "a") as fo:
+            fo.write(f"{data}\n")
         pickle.dump(data, fhandle)
 
     def prepare_for_submission(self, folder):
@@ -97,11 +102,6 @@ class CalcJobPython(CalcJob):
 
         with folder.open(self.inputs.metadata.options.input_filename, "w") as fhandle:
             fhandle.write(source_code)
-
-        data = {}
-        for inp in self.inputs:
-            if inp in ('metadata', 'code'): continue
-            data[inp] = self.inputs[inp].value
 
         with folder.open(INFILE, 'wb') as fhandle:
             self.serialize(fhandle)

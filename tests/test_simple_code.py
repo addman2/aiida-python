@@ -1,4 +1,4 @@
-from aiida.orm import (Int, Float, Str)
+from aiida.orm import (Int, Float, Str, List)
 from aiida.plugins import CalculationFactory
 
 CalcJobPython = CalculationFactory("aiida_python.calc")
@@ -46,6 +46,24 @@ class ClassThatCannotStartWithTestStr(CalcJobPython):
         else:
             b = "mi sona ala"
         self.outputs.ovca = b
+
+class ClassThatCannotStartWithTestList(CalcJobPython):
+
+    @classmethod
+    def define(cls, spec):
+        super().define(spec)
+
+        spec.input('koza', valid_type=List)
+        spec.output('ovca', valid_type=Int)
+#        spec.output('krava', valid_type=List)
+
+    def run_python(self):
+        a = self.inputs.koza
+        b = sum(a)
+        c = a
+        c[0] += 1
+        self.outputs.ovca = b
+#        self.outputs.krava = c
 
 def test_simple_code_int(aiida_local_code_factory, clear_database):
     from aiida.plugins import CalculationFactory
@@ -104,3 +122,23 @@ def test_simple_code_str(aiida_local_code_factory, clear_database):
     result = run(calculation, **inputs)
 
     assert result['ovca'] == "mi sona ala"
+
+def test_simple_code_list(aiida_local_code_factory, clear_database):
+    from aiida.plugins import CalculationFactory
+    from aiida.engine import run
+
+    executable = 'python3'
+    entry_point = 'test.calc_list'
+
+    code = aiida_local_code_factory(entry_point=entry_point, executable=executable)
+    calculation = CalculationFactory(entry_point)
+
+    inputs = { 'code': code,
+               'koza': List([1, 2, 3])}
+
+    #result = run(calculation, **inputs)
+
+    #assert result['ovca'] == 6
+
+    # o linja mute mute
+    #assert functools.reduce(lambda x, y : x and y, map(lambda p, q: p == q,[2,2,3],result['krava']), True)

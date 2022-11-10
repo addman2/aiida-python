@@ -82,3 +82,34 @@ def test_SerializerStr():
     ans = SerializerStr.deserialize(2)
 
     assert ans is 2
+
+def test_SerializerList():
+
+    import functools
+
+    from aiida.orm import Int
+    from aiida.orm import List
+
+    from aiida_python import SerializerList
+
+    l = [1, 2, 3]
+    obj = List(l)
+    ans = SerializerList.serialize(obj)
+
+    assert isinstance(ans, list)
+
+    # o linja mute mute
+    assert functools.reduce(lambda x, y : x and y, map(lambda p, q: p == q,l,ans), True)
+
+    obj = Int(2)
+    ans = SerializerList.serialize(obj)
+
+    assert ans is obj
+
+    ans = SerializerList.deserialize(l)
+
+    assert isinstance(ans, List)
+
+    ans = SerializerList.deserialize(2)
+
+    assert ans is 2

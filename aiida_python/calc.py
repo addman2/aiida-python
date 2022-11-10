@@ -37,7 +37,8 @@ class CalcJobPython(CalcJob):
 
         spec.inputs['metadata']['options']['serializers'].default = ['int',
                                                                      'float',
-                                                                     'str']
+                                                                     'str',
+                                                                     'list']
 
     def serialize(self, fhandle):
         """
@@ -46,13 +47,8 @@ class CalcJobPython(CalcJob):
         import pkg_resources
         def serialize_this(obj):
             for entry_point in pkg_resources.iter_entry_points('aiida_python.serializers'):
-                with open("/home/addman/g", "a") as fo:
-                    fo.write(f"{vars(entry_point)}\n")
-                    fo.write(f"{vars(entry_point)}\n")
                 if entry_point.name in self.inputs['metadata']['options']['serializers']:
                     obj = entry_point.load().serialize(obj)
-                    with open("/home/addman/g", "a") as fo:
-                        fo.write(f"{vars(entry_point)}\n")
             return obj
 
         """

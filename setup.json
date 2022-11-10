@@ -16,10 +16,7 @@
     "entry_points": {
         "aiida.calculations": [
             "aiida_python.calc = aiida_python.calc:CalcJobPython",
-            "test.calc = tests.classme:ClassThatCannotStartWithTest",
-            "test.calc_bi = tests.classme_badindent:ClassThatCannotStartWithTestAndHasBadIndent",
-            "test.calc_numpy_without_numpy = tests.classme_numpy_without_numpy:ClassThatCannotStartWithTestAndWorksWithNumpyButIsWithoutNumpy",
-            "test.calc_error = tests.classme_error:ClassThatCannotStartWithTestAndDoesError"
+            "test.calc = tests.test_simple_code:ClassThatCannotStartWithTest"
         ],
         "aiida.parsers": [
             "aiida_python.parser = aiida_python.parser:ParserPython"

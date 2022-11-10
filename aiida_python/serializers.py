@@ -9,7 +9,7 @@ class Serializer():
 class SerializerInt(Serializer):
 
     @classmethod
-    def baucis(cls):
+    def baukis(cls):
         return int
 
     @classmethod
@@ -25,5 +25,5 @@ class SerializerInt(Serializer):
     @classmethod
     def deserialize(cls, obj):
         if isinstance(obj, cls.baukis()):
-            return cls.philemon(obj)
+            return cls.philemon()(obj)
         return obj

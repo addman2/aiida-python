@@ -21,3 +21,7 @@ def test_SerializerInt():
     ans = SerializerInt.serialize(obj)
 
     assert ans is obj
+
+    ans = SerializerInt.deserialize(2)
+
+    assert isinstance(ans, Int)

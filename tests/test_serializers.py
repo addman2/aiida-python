@@ -26,7 +26,7 @@ def test_SerializerInt():
 
     assert isinstance(ans, Int)
 
-def test_SerializerInt():
+def test_SerializerFloat():
 
     from aiida.orm import Int
     from aiida.orm import Float
@@ -40,10 +40,33 @@ def test_SerializerInt():
     assert ans == 2
 
     obj = Int(2)
-    ans = SerializerInt.serialize(obj)
+    ans = SerializerFloat.serialize(obj)
 
     assert ans is obj
 
-    ans = SerializerInt.deserialize(2.0)
+    ans = SerializerFloat.deserialize(2.0)
 
     assert isinstance(ans, Float)
+
+def test_SerializerStr():
+
+    from aiida.orm import Int
+    from aiida.orm import Str
+
+    from aiida_python import SerializerStr
+
+    message = "Anitta DUMU Pithaana LUGAL Kuusara QIBI"
+    obj = Str(message)
+    ans = SerializerStr.serialize(obj)
+
+    assert isinstance(ans, str)
+    assert ans == message
+
+    obj = Int(2)
+    ans = SerializerStr.serialize(obj)
+
+    assert ans is obj
+
+    ans = SerializerStr.deserialize(message)
+
+    assert isinstance(ans, Str)

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from aiida.orm import (Int, Float)
+from aiida.orm import (Int, Float, Str)
 
 class Serializer():
 
@@ -37,6 +37,28 @@ class SerializerFloat(Serializer):
     @classmethod
     def philemon(cls):
         return Float
+
+    @classmethod
+    def serialize(cls, obj):
+        if isinstance(obj, cls.philemon()):
+            return obj.value
+        return obj
+
+    @classmethod
+    def deserialize(cls, obj):
+        if isinstance(obj, cls.baukis()):
+            return cls.philemon()(obj)
+        return obj
+
+class SerializerStr(Serializer):
+
+    @classmethod
+    def baukis(cls):
+        return str
+
+    @classmethod
+    def philemon(cls):
+        return Str
 
     @classmethod
     def serialize(cls, obj):

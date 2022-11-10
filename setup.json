@@ -9,21 +9,23 @@
         "Programming Language :: Python",
         "Intended Audience :: Science/Research",
         "License :: OSI Approved :: MIT License",
-        "Natural Language :: English, Toki Pona",
+        "Natural Language :: English, Toki Pona, Old Hittite, Transliterated Sumerian ideograms",
         "Framework :: AiiDA"
     ],
     "version": "0.0.0",
     "entry_points": {
         "aiida.calculations": [
             "aiida_python.calc = aiida_python.calc:CalcJobPython",
-            "test.calc = tests.test_simple_code:ClassThatCannotStartWithTest"
+            "test.calc_int = tests.test_simple_code:ClassThatCannotStartWithTestInt",
+            "test.calc_float = tests.test_simple_code:ClassThatCannotStartWithTestFloat"
         ],
         "aiida.parsers": [
             "aiida_python.parser = aiida_python.parser:ParserPython"
         ],
         "aiida_python.serializers": [
             "int = aiida_python.serializers:SerializerInt",
-            "float = aiida_python.serializers:SerializerFloat"
+            "float = aiida_python.serializers:SerializerFloat",
+            "str = aiida_python.serializers:SerializerStr"
         ]
     },
     "include_package_data": true,

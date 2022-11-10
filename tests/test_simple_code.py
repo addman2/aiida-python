@@ -1,4 +1,4 @@
-from aiida.orm import (Int, Float, Str, List)
+from aiida.orm import (Int, Float, Str, List, ArrayData)
 from aiida.plugins import CalculationFactory
 
 CalcJobPython = CalculationFactory("aiida_python.calc")
@@ -79,7 +79,7 @@ class ClassThatCannotStartWithTestArrayData(CalcJobPython):
         import numpy as np
 
         a = self.inputs.koza
-        b = np.sum(a)
+        b = int(np.sum(a))
         c = a
         c[0] += 1
         self.outputs.ovca = b
@@ -163,3 +163,26 @@ def test_simple_code_list(aiida_local_code_factory, clear_database):
     import functools
     # o linja mute mute
     assert functools.reduce(lambda x, y : x and y, map(lambda p, q: p == q,[2,2,3],result['krava']), True)
+
+def test_simple_code_arraydata(aiida_local_code_factory, clear_database):
+    from aiida.plugins import CalculationFactory
+    from aiida.engine import run
+    import numpy as np
+
+    executable = 'python3'
+    entry_point = 'test.calc_arraydata'
+
+    code = aiida_local_code_factory(entry_point=entry_point, executable=executable)
+    calculation = CalculationFactory(entry_point)
+
+    np_a = np.array([[1,2],[3,4]])
+    a = ArrayData()
+    a.set_array("only_one", np_a)
+
+    inputs = { 'code': code,
+               'koza': a}
+
+    result = run(calculation, **inputs)
+
+    assert result['ovca'] == 10
+    assert np.sum(result['krava'].get_array("only_one") - np_a - 1) < 0.0001

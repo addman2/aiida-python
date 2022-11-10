@@ -17,7 +17,8 @@
         "aiida.calculations": [
             "aiida_python.calc = aiida_python.calc:CalcJobPython",
             "test.calc_int = tests.test_simple_code:ClassThatCannotStartWithTestInt",
-            "test.calc_float = tests.test_simple_code:ClassThatCannotStartWithTestFloat"
+            "test.calc_float = tests.test_simple_code:ClassThatCannotStartWithTestFloat",
+            "test.calc_str = tests.test_simple_code:ClassThatCannotStartWithTestStr"
         ],
         "aiida.parsers": [
             "aiida_python.parser = aiida_python.parser:ParserPython"

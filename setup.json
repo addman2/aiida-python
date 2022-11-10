@@ -25,10 +25,7 @@
             "aiida_python.parser = aiida_python.parser:ParserPython"
         ],
         "aiida_python.serializers": [
-            "int = aiida_python.serializers:SerializerInt",
-            "float = aiida_python.serializers:SerializerFloat",
-            "str = aiida_python.serializers:SerializerStr",
-            "test.serializerlist = tests.classme_numpy:SerializerList"
+            "int = aiida_python.serializers:SerializerInt"
         ]
     },
     "include_package_data": true,

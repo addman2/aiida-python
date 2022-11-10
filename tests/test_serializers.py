@@ -26,6 +26,10 @@ def test_SerializerInt():
 
     assert isinstance(ans, Int)
 
+    ans = SerializerInt.deserialize(2.0)
+
+    assert ans is 2.0
+
 def test_SerializerFloat():
 
     from aiida.orm import Int
@@ -47,6 +51,10 @@ def test_SerializerFloat():
     ans = SerializerFloat.deserialize(2.0)
 
     assert isinstance(ans, Float)
+
+    ans = SerializerFloat.deserialize(2)
+
+    assert ans is 2
 
 def test_SerializerStr():
 
@@ -70,3 +78,7 @@ def test_SerializerStr():
     ans = SerializerStr.deserialize(message)
 
     assert isinstance(ans, Str)
+
+    ans = SerializerStr.deserialize(2)
+
+    assert ans is 2

@@ -2,7 +2,8 @@
 
 from aiida.common import datastructures
 from aiida.engine import CalcJob
-from aiida.orm import (Int,
+from aiida.orm import (Data,
+                       Int,
                        Float,
                        Str)
 
@@ -56,6 +57,10 @@ class CalcJobPython(CalcJob):
         o linja mute mute ...
         """
         data = { inp: serialize_this(self.inputs[inp]) for inp in self.inputs if inp not in ('metadata', 'code') }
+        """
+        fixme: Make a warning if something was not serialized
+        """
+        data = { key: val for key, val in data.items() if not isinstance(val, Data) }
         import pickle
         with open("/home/addman/g", "a") as fo:
             fo.write(f"{data}\n")
@@ -68,6 +73,8 @@ class CalcJobPython(CalcJob):
             # None type is not callable, right?
             raise NoRunPythonMethod()
 
+        docs = run_python.__doc__
+        self._process_docs(folder, docs)
         import inspect
         source_code, _ = inspect.getsourcelines(run_python)
         """
@@ -120,3 +127,20 @@ class CalcJobPython(CalcJob):
                                   OUTFILE]
 
         return calcinfo
+
+    def _process_docs(self, folder, docs):
+        if not docs: return
+        import re
+        import os
+
+        for line in docs.split("\n"):
+            m = re.match(r'.*!file\s+(.+):\s*([_a-zA-Z0-9]+)\s*$', line)
+            if m:
+                self._op_file_in(folder, m.group(1), m.group(2))
+
+    def _op_file_in(self, folder, inputname, filename):
+        with folder.open(filename, "wb") as fhandle_destination, \
+             getattr(self.inputs, inputname).open(mode="rb") as fhandle_source:
+            fhandle_destination.write(fhandle_source.read())
+
+

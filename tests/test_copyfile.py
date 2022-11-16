@@ -1,5 +1,6 @@
 from aiida.orm import (Int, Float, Str, List, ArrayData, SinglefileData)
 from aiida.plugins import CalculationFactory
+import pytest
 
 CalcJobPython = CalculationFactory("aiida_python.calc")
 
@@ -12,22 +13,30 @@ class ClassThatCannotStartWithTestCopyFile(CalcJobPython):
         spec.input('repeats', valid_type=Int)
         spec.input('inputfile', valid_type=SinglefileData)
         spec.output('value', valid_type=Float)
+        #spec.output('output', valid_type=SinglefileData)
 
     def run_python(self):
         """
         This is commentary
 
+        This file will be stored in the working directory:
         !file inputfile: data
+
+        Unset ports will be ignored:
+        !file inputfile2: data2
         """
         import numpy as np
         import pickle as pkl
 
         with open("data", "rb") as fhandle:
             x = pkl.load(fhandle)
+        with open("output", "w") as fhandle:
+            fhandle.write("Succesfull run")
         average = np.average(x)
-        self.outputs.value = 0.0
+        self.outputs.value = average
 
-def test_example(aiida_local_code_factory, clear_database):
+@pytest.mark.filterwarnings("ignore:Creating AiiDA")
+def test_copyfile(aiida_local_code_factory, clear_database):
 
     from aiida.plugins import CalculationFactory
     from aiida.engine import run
@@ -45,4 +54,6 @@ def test_example(aiida_local_code_factory, clear_database):
                'inputfile': inputfile,
                'repeats': Int(10)}
 
+    correct_average = 0.49740618733672
     result = run(calculation, **inputs)
+    assert abs(result["value"].value - correct_average) < 0.01

@@ -1,5 +1,6 @@
 from aiida.orm import (Int, Float, Str, List, ArrayData)
 from aiida.plugins import CalculationFactory
+import pytest
 
 CalcJobPython = CalculationFactory("aiida_python.calc")
 
@@ -29,6 +30,7 @@ class ClassThatCannotStartWithTestExample(CalcJobPython):
         c = float(np.sum(a))
         self.outputs.value = c
 
+@pytest.mark.filterwarnings("ignore:Creating AiiDA")
 def test_example(aiida_local_code_factory, clear_database):
     from aiida.plugins import CalculationFactory
     from aiida.engine import run

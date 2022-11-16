@@ -73,6 +73,7 @@ class CalcJobPython(CalcJob):
             # None type is not callable, right?
             raise NoRunPythonMethod()
 
+        self.helper = {}
         docs = run_python.__doc__
         self._process_docs(folder, docs)
         import inspect
@@ -129,7 +130,9 @@ class CalcJobPython(CalcJob):
         return calcinfo
 
     def _process_docs(self, folder, docs):
+
         if not docs: return
+
         import re
         import os
 
@@ -139,8 +142,14 @@ class CalcJobPython(CalcJob):
                 self._op_file_in(folder, m.group(1), m.group(2))
 
     def _op_file_in(self, folder, inputname, filename):
-        with folder.open(filename, "wb") as fhandle_destination, \
-             getattr(self.inputs, inputname).open(mode="rb") as fhandle_source:
-            fhandle_destination.write(fhandle_source.read())
+        try:
+            with folder.open(filename, "wb") as fhandle_destination, \
+                 getattr(self.inputs, inputname).open(mode="rb") as fhandle_source:
+                fhandle_destination.write(fhandle_source.read())
+        except AttributeError:
+            """
+            If input port does not exists do nothing
+            """
+            pass
 
 

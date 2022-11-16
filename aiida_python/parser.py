@@ -4,7 +4,9 @@ from aiida.engine import ExitCode
 from aiida.parsers.parser import Parser
 from aiida.plugins import CalculationFactory
 from aiida.common import exceptions
-from aiida.orm import Int, Float, SinglefileData
+from aiida.orm import (Int,
+                       Float,
+                       SinglefileData)
 from aiida_python.data import IHideYouHolder
 from aiida_python.calc import (INFILE,
                                OUTFILE)
@@ -24,7 +26,7 @@ class ParserPython(Parser):
         """
         Parse outputs, store results in database.
 
-        :returns: an exit code, if parsing fails (or nothing if parsing succeeds)
+        :returns: an exit code
         """
 
         output_filename = self.node.get_option("output_filename")

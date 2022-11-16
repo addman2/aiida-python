@@ -41,6 +41,10 @@ class CalcJobPython(CalcJob):
                                                                      'str',
                                                                      'list',
                                                                      'arraydata',]
+        spec.output('run_code',
+                    valid_type=Str,
+                    help='Code that had been run')
+
         spec.exit_code(300, 'ERROR_MISSING_OUTPUT_VARIABLES', message='Calculation did not produce all expected output files.')
 
     def serialize(self, fhandle):
@@ -125,7 +129,9 @@ class CalcJobPython(CalcJob):
         calcinfo.local_copy_list = []
 
         calcinfo.retrieve_list = [self.inputs.metadata.options.output_filename,
-                                  OUTFILE]
+                                  self.inputs.metadata.options.input_filename,
+                                  OUTFILE,
+                                 ]
         if "retrieve_list" in self.helper:
             calcinfo.retrieve_list.extend(self.helper["retrieve_list"])
 

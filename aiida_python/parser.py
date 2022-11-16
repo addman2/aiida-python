@@ -6,6 +6,7 @@ from aiida.plugins import CalculationFactory
 from aiida.common import exceptions
 from aiida.orm import (Int,
                        Float,
+                       Str,
                        SinglefileData)
 from aiida_python.data import IHideYouHolder
 from aiida_python.calc import (INFILE,
@@ -31,10 +32,10 @@ class ParserPython(Parser):
         """
 
         output_filename = self.node.get_option("output_filename")
+        input_filename = self.node.get_option("input_filename")
         files_retrieved = self.retrieved.list_object_names()
         serializers = self.node.get_option("serializers")
         docs = CalculationFactory(self.node.process_type.split(':')[1]).run_python.__doc__
-        print(self.get_outputs_for_parsing())
 
         import pkg_resources
         def deserialize_this(obj):
@@ -51,15 +52,17 @@ class ParserPython(Parser):
                 save_output = deserialize_this(value)
                 self.out(key, save_output)
 
+        with self.retrieved.open(input_filename, 'r') as handle:
+            code = handle.read()
+            self.out("run_code", Str(code))
+
         if not docs: docs = ""
         for line in docs.split("\n"):
             m = re.match(r'.*!!file\s+(.+):\s*([_a-zA-Z0-9]+)\s*$', line)
             if m:
-                #if m.group(1) not in self.outputs: continue
                 with self.retrieved.open(m.group(2), "rb") as fhandle_input:
                      file = SinglefileData(file=fhandle_input)
                      print(f"Setting {m.group(1)} as {m.group(2)}")
                      self.out(m.group(1), file)
 
-        print(self.outputs)
         return ExitCode(0)

@@ -61,9 +61,8 @@ class CalcJobPython(CalcJob):
         fixme: Make a warning if something was not serialized
         """
         data = { key: val for key, val in data.items() if not isinstance(val, Data) }
+
         import pickle
-        with open("/home/addman/g", "a") as fo:
-            fo.write(f"{data}\n")
         pickle.dump(data, fhandle)
 
     def prepare_for_submission(self, folder):
@@ -126,6 +125,8 @@ class CalcJobPython(CalcJob):
 
         calcinfo.retrieve_list = [self.inputs.metadata.options.output_filename,
                                   OUTFILE]
+        if "retrieve_list" in self.helper:
+            calcinfo.retrieve_list.extend(self.helper["retrieve_list"])
 
         return calcinfo
 
@@ -140,6 +141,12 @@ class CalcJobPython(CalcJob):
             m = re.match(r'.*!file\s+(.+):\s*([_a-zA-Z0-9]+)\s*$', line)
             if m:
                 self._op_file_in(folder, m.group(1), m.group(2))
+                self._op_file_out(folder, m.group(2))
+
+    def _op_file_out(self, folder, filename):
+        if "retrieve_list" not in self.helper:
+            self.helper['retrieve_list'] = []
+        self.helper['retrieve_list'].append(filename)
 
     def _op_file_in(self, folder, inputname, filename):
         try:

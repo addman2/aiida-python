@@ -32,6 +32,8 @@ class ParserPython(Parser):
         output_filename = self.node.get_option("output_filename")
         files_retrieved = self.retrieved.list_object_names()
         serializers = self.node.get_option("serializers")
+        docs = CalculationFactory(self.node.process_type.split(':')[1]).run_python.__doc__
+        x = CalculationFactory(self.node.process_type.split(':')[1])._process_docs
 
         import pkg_resources
         def deserialize_this(obj):
@@ -41,13 +43,10 @@ class ParserPython(Parser):
             return obj
 
         with self.retrieved.open(OUTFILE, 'rb') as handle:
-            print(serializers)
             import pickle
             everything = pickle.load(handle)
             for key, value in everything.items():
                 save_output = deserialize_this(value)
-                with open("/home/addman/f", "w") as fhandle:
-                    fhandle.write(f"{key} {type(save_output)}")
                 self.out(key, save_output)
 
         return ExitCode(0)

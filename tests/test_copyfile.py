@@ -13,7 +13,7 @@ class ClassThatCannotStartWithTestCopyFile(CalcJobPython):
         spec.input('repeats', valid_type=Int)
         spec.input('inputfile', valid_type=SinglefileData)
         spec.output('value', valid_type=Float)
-        #spec.output('output', valid_type=SinglefileData)
+        spec.output('output', valid_type=SinglefileData)
 
     def run_python(self):
         """
@@ -24,6 +24,9 @@ class ClassThatCannotStartWithTestCopyFile(CalcJobPython):
 
         Unset ports will be ignored:
         !file inputfile2: data2
+
+        Store output
+        !!file output: output
         """
         import numpy as np
         import pickle as pkl
@@ -57,3 +60,4 @@ def test_copyfile(aiida_local_code_factory, clear_database):
     correct_average = 0.49740618733672
     result = run(calculation, **inputs)
     assert abs(result["value"].value - correct_average) < 0.01
+    assert "output" in result

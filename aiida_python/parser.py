@@ -43,6 +43,7 @@ class ParserPython(Parser):
                     obj = entry_point.load().deserialize(obj)
             return obj
 
+        if OUTFILE not in self.retrieved.list_object_names(): return ExitCode(300)
         with self.retrieved.open(OUTFILE, 'rb') as handle:
             import pickle
             everything = pickle.load(handle)

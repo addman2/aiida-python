@@ -4,6 +4,8 @@ import pytest
 
 CalcJobPython = CalculationFactory("aiida_python.calc")
 
+SUCCESS_MSG = "Succesfull run"
+
 class ClassThatCannotStartWithTestCopyFile(CalcJobPython):
 
     @classmethod
@@ -61,3 +63,5 @@ def test_copyfile(aiida_local_code_factory, clear_database):
     result = run(calculation, **inputs)
     assert abs(result["value"].value - correct_average) < 0.01
     assert "output" in result
+    with result["output"].open(mode="r") as fhandle:
+        assert fhandle.read() == SUCCESS_MSG

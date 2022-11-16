@@ -41,6 +41,7 @@ class CalcJobPython(CalcJob):
                                                                      'str',
                                                                      'list',
                                                                      'arraydata',]
+        spec.exit_code(300, 'ERROR_MISSING_OUTPUT_VARIABLES', message='Calculation did not produce all expected output files.')
 
     def serialize(self, fhandle):
         """

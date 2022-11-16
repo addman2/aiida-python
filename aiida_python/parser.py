@@ -36,10 +36,12 @@ class ParserPython(Parser):
         import pkg_resources
         def deserialize_this(obj):
             for entry_point in pkg_resources.iter_entry_points('aiida_python.serializers'):
-                obj = entry_point.load().deserialize(obj)
+                if entry_point.name in serializers:
+                    obj = entry_point.load().deserialize(obj)
             return obj
 
         with self.retrieved.open(OUTFILE, 'rb') as handle:
+            print(serializers)
             import pickle
             everything = pickle.load(handle)
             for key, value in everything.items():

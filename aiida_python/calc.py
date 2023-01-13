@@ -9,6 +9,7 @@ from aiida.orm import (Data,
 
 INFILE = ".__data_mia.inpkl"
 OUTFILE = ".__data_mia.outpkl"
+ERRFILE = ".__data_mia.errpkl"
 
 class NoRunPythonMethod(Exception):
     pass
@@ -44,6 +45,10 @@ class CalcJobPython(CalcJob):
         spec.output('run_code',
                     valid_type=Str,
                     help='Code that had been run')
+
+        spec.output('error_message',
+                    valid_type=Str,
+                    help='Error message if exception was raised')
 
         spec.exit_code(300, 'ERROR_MISSING_OUTPUT_VARIABLES', message='Calculation did not produce all expected output files.')
 
@@ -90,6 +95,7 @@ class CalcJobPython(CalcJob):
         There is indent of the code the 'if True:'
         statement fixes unexpected indent.
         """
+
         #source_code = [ l[4:-1] for l in source_code ]
         source_code = ['import os',
                        'os.system("mkdir ihyh")',
@@ -99,8 +105,14 @@ class CalcJobPython(CalcJob):
                        'if True:'] + source_code
 
         arguments = f'infile="{INFILE}", outfile="{OUTFILE}"'
-        source_code.append(f'run_python(IHideYouHolder({arguments}))')
-        source_code = '\n'.join(source_code)
+        runline = f"run_python(IHideYouHolder({arguments}))"
+        trailing_code = ['try:',
+                         f'    {runline}',
+                         'except Exception as exc:',
+                         f'    with open("{ERRFILE}", "w") as fhandle:',
+                         '        fhandle.write(str(exc))']
+        #source_code.append(f'try:\n    run_python(IHideYouHolder({arguments}))\nexcept:\n    os.system("echo ijo ike > {ERRFILE}")')
+        source_code = '\n'.join(source_code + trailing_code)
 
         import os
         from pathlib import Path
@@ -131,6 +143,7 @@ class CalcJobPython(CalcJob):
         calcinfo.retrieve_list = [self.inputs.metadata.options.output_filename,
                                   self.inputs.metadata.options.input_filename,
                                   OUTFILE,
+                                  ERRFILE,
                                  ]
         if "retrieve_list" in self.helper:
             calcinfo.retrieve_list.extend(self.helper["retrieve_list"])

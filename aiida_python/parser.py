@@ -10,7 +10,8 @@ from aiida.orm import (Int,
                        SinglefileData)
 from aiida_python.data import IHideYouHolder
 from aiida_python.calc import (INFILE,
-                               OUTFILE)
+                               OUTFILE,
+                               ERRFILE)
 import re
 
 class ParserPython(Parser):
@@ -44,7 +45,12 @@ class ParserPython(Parser):
                     obj = entry_point.load().deserialize(obj)
             return obj
 
+        if ERRFILE in self.retrieved.list_object_names():
+            with self.retrieved.open(ERRFILE, 'r') as fhandle:
+                self.out("error_message", Str(fhandle.read()))
+
         if OUTFILE not in self.retrieved.list_object_names(): return ExitCode(300)
+
         with self.retrieved.open(OUTFILE, 'rb') as handle:
             import pickle
             everything = pickle.load(handle)

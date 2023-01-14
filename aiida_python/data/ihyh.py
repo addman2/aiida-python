@@ -1,4 +1,5 @@
 from enum import Enum
+
 class D(Enum):
     IN = 1
     OUT = 65872

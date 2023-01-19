@@ -14,4 +14,5 @@ class GOLSystem(Data):
 
         super(Data, self).__init__(**kwargs)
 
+        array = [[bool(array[ii, jj]) for ii in range(array.shape[0])] for jj in range(array.shape[1])]
         self.set_attribute("array", array)

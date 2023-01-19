@@ -35,6 +35,9 @@
             "str = aiida_python.serializers:SerializerStr",
             "list = aiida_python.serializers:SerializerList",
             "arraydata = aiida_python.serializers:SerializerArrayData"
+        ],
+        "aiida.data": [
+            "aiida_python.gol.system = example.gol.system:GOLSystem"
         ]
     },
     "include_package_data": true,

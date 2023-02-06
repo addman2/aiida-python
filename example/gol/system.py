@@ -9,7 +9,7 @@ class GOLSystem(Data):
 
     def __init__(self, array=None, **kwargs):
         """
-        :param array: numpy array of booleans, True = alive,False = dead
+        :param array: numpy array of booleans, True = alive, False = dead
         """
 
         super(Data, self).__init__(**kwargs)

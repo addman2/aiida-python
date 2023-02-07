@@ -32,13 +32,17 @@ class ClassThatCannotStartWithTestExample(CalcJobPython):
         self.outputs.value = c
 
 @pytest.mark.filterwarnings("ignore:Creating AiiDA")
-def test_example(aiida_local_code_factory, clear_database):
+def test_example(aiida_local_code_factory, clear_database, entry_points):
+
     from aiida.plugins import CalculationFactory
     from aiida.engine import run
     import numpy as np
 
     executable = 'python3'
     entry_point = 'test.calc_example'
+    group = 'aiida.calculations'
+
+    entry_points.add(ClassThatCannotStartWithTestExample, f"{group}:{entry_point}")
 
     code = aiida_local_code_factory(entry_point=entry_point, executable=executable)
     calculation = CalculationFactory(entry_point)
@@ -54,13 +58,17 @@ def test_example(aiida_local_code_factory, clear_database):
     result = run(calculation, **inputs)
 
 @pytest.mark.filterwarnings("ignore:Creating AiiDA")
-def test_example_codelog(aiida_local_code_factory, clear_database):
+def test_example_codelog(aiida_local_code_factory, clear_database, entry_points):
+
     from aiida.plugins import CalculationFactory
     from aiida.engine import run
     import numpy as np
 
     executable = 'python3'
     entry_point = 'test.calc_example'
+    group = 'aiida.calculations'
+
+    entry_points.add(ClassThatCannotStartWithTestExample, f"{group}:{entry_point}")
 
     code = aiida_local_code_factory(entry_point=entry_point, executable=executable)
     calculation = CalculationFactory(entry_point)

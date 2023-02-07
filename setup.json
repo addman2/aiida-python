@@ -16,15 +16,7 @@
     "entry_points": {
         "aiida.calculations": [
             "aiida_python.calc = aiida_python.calc:CalcJobPython",
-            "test.calc_int = tests.test_simple_code:ClassThatCannotStartWithTestInt",
-            "test.calc_float = tests.test_simple_code:ClassThatCannotStartWithTestFloat",
-            "test.calc_str = tests.test_simple_code:ClassThatCannotStartWithTestStr",
-            "test.calc_list = tests.test_simple_code:ClassThatCannotStartWithTestList",
-            "test.calc_arraydata = tests.test_simple_code:ClassThatCannotStartWithTestArrayData",
-            "test.calc_example = tests.test_example:ClassThatCannotStartWithTestExample",
-            "test.calc_copyfile = tests.test_copyfile:ClassThatCannotStartWithTestCopyFile",
-            "test.calc_diag = example.test_diagonalization:ClassThatCannotStartWithTestLastTime",
-            "test.calc_exception = tests.test_exception:ClassThatCannotStartWithTestException"
+            "aiida_python.example.calc_diag = example.test_diagonalization:ClassThatCannotStartWithTestLastTime"
         ],
         "aiida.parsers": [
             "aiida_python.parser = aiida_python.parser:ParserPython"

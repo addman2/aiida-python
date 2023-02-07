@@ -85,12 +85,15 @@ class ClassThatCannotStartWithTestArrayData(CalcJobPython):
         self.outputs.ovca = b
         self.outputs.krava = c
 
-def test_simple_code_int(aiida_local_code_factory, clear_database):
+def test_simple_code_int(aiida_local_code_factory, clear_database, entry_points):
     from aiida.plugins import CalculationFactory
     from aiida.engine import run
 
     executable = 'python3'
     entry_point = 'test.calc_int'
+    group = 'aiida.calculations'
+
+    entry_points.add(ClassThatCannotStartWithTestInt, f"{group}:{entry_point}")
 
     code = aiida_local_code_factory(entry_point=entry_point, executable=executable)
     calculation = CalculationFactory(entry_point)
@@ -102,12 +105,15 @@ def test_simple_code_int(aiida_local_code_factory, clear_database):
 
     assert result['ovca'] == 2
 
-def test_simple_code_float(aiida_local_code_factory, clear_database):
+def test_simple_code_float(aiida_local_code_factory, clear_database, entry_points):
     from aiida.plugins import CalculationFactory
     from aiida.engine import run
 
     executable = 'python3'
     entry_point = 'test.calc_float'
+    group = 'aiida.calculations'
+
+    entry_points.add(ClassThatCannotStartWithTestFloat, f"{group}:{entry_point}")
 
     code = aiida_local_code_factory(entry_point=entry_point, executable=executable)
     calculation = CalculationFactory(entry_point)
@@ -119,12 +125,15 @@ def test_simple_code_float(aiida_local_code_factory, clear_database):
 
     assert result['ovca'] == 2.0
 
-def test_simple_code_str(aiida_local_code_factory, clear_database):
+def test_simple_code_str(aiida_local_code_factory, clear_database, entry_points):
     from aiida.plugins import CalculationFactory
     from aiida.engine import run
 
     executable = 'python3'
     entry_point = 'test.calc_str'
+    group = 'aiida.calculations'
+
+    entry_points.add(ClassThatCannotStartWithTestStr, f"{group}:{entry_point}")
 
     code = aiida_local_code_factory(entry_point=entry_point, executable=executable)
     calculation = CalculationFactory(entry_point)
@@ -143,12 +152,15 @@ def test_simple_code_str(aiida_local_code_factory, clear_database):
 
     assert result['ovca'] == "mi sona ala"
 
-def test_simple_code_list(aiida_local_code_factory, clear_database):
+def test_simple_code_list(aiida_local_code_factory, clear_database, entry_points):
     from aiida.plugins import CalculationFactory
     from aiida.engine import run
 
     executable = 'python3'
     entry_point = 'test.calc_list'
+    group = 'aiida.calculations'
+
+    entry_points.add(ClassThatCannotStartWithTestList, f"{group}:{entry_point}")
 
     code = aiida_local_code_factory(entry_point=entry_point, executable=executable)
     calculation = CalculationFactory(entry_point)
@@ -164,13 +176,16 @@ def test_simple_code_list(aiida_local_code_factory, clear_database):
     # o linja mute mute
     assert functools.reduce(lambda x, y : x and y, map(lambda p, q: p == q,[2,2,3],result['krava']), True)
 
-def test_simple_code_arraydata(aiida_local_code_factory, clear_database):
+def test_simple_code_arraydata(aiida_local_code_factory, clear_database, entry_points):
     from aiida.plugins import CalculationFactory
     from aiida.engine import run
     import numpy as np
 
     executable = 'python3'
     entry_point = 'test.calc_arraydata'
+    group = 'aiida.calculations'
+
+    entry_points.add(ClassThatCannotStartWithTestArrayData, f"{group}:{entry_point}")
 
     code = aiida_local_code_factory(entry_point=entry_point, executable=executable)
     calculation = CalculationFactory(entry_point)

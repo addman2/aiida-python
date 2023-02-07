@@ -41,7 +41,7 @@ class ClassThatCannotStartWithTestCopyFile(CalcJobPython):
         self.outputs.value = average
 
 @pytest.mark.filterwarnings("ignore:Creating AiiDA")
-def test_copyfile(aiida_local_code_factory, clear_database):
+def test_copyfile(aiida_local_code_factory, clear_database, entry_points):
 
     from aiida.plugins import CalculationFactory
     from aiida.engine import run
@@ -49,6 +49,9 @@ def test_copyfile(aiida_local_code_factory, clear_database):
 
     executable = 'python3'
     entry_point = 'test.calc_copyfile'
+    group = 'aiida.calculations'
+
+    entry_points.add(ClassThatCannotStartWithTestCopyFile, f"{group}:{entry_point}")
 
     code = aiida_local_code_factory(entry_point=entry_point, executable=executable)
     calculation = CalculationFactory(entry_point)

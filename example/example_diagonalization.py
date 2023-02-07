@@ -79,7 +79,7 @@ def test_diagonalize_hamiltonian(aiida_local_code_factory, clear_database):
     import numpy as np
 
     executable = 'python3'
-    entry_point = 'test.calc_diag'
+    entry_point = 'aiida_python.example.calc_diag'
 
     code = aiida_local_code_factory(entry_point=entry_point, executable=executable)
     calculation = CalculationFactory(entry_point)

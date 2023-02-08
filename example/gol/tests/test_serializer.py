@@ -4,7 +4,7 @@
 Test system serializer
 """
 
-def test_SerializerGOL(aiida_local_code_factory, clear_database):
+def test_SerializerGOL(aiida_local_code_factory, clear_database, entry_points):
 
     import functools
     import numpy as np
@@ -12,23 +12,12 @@ def test_SerializerGOL(aiida_local_code_factory, clear_database):
     from aiida.orm import Int
     from aiida.orm import ArrayData
 
-    from aiida_python import SerializerArrayData
+    serializer = entry_points.eps().select(group="aiida_python.serializers", name="aiida_python.gol.system")[0].load()
 
-    a = np.array([[True,True],[True,False]])
+    obj = serializer.deserialize(np.array([[True,True],[True,False]]))
+    array = serializer.serialize(obj)
 
-    #assert isinstance(ans, np.ndarray)
-
-    #assert np.sum(ans - a) < 0.0001
-
-    #obj = Int(2)
-    #ans = SerializerArrayData.serialize(obj)
-
-    #assert ans is obj
-
-    #ans = SerializerArrayData.deserialize(a)
-
-    #assert isinstance(ans, ArrayData)
-
-    #ans = SerializerArrayData.deserialize(2)
-
-    #assert ans is 2
+    assert array[0][0]
+    assert array[0][1]
+    assert array[1][0]
+    assert not array[1][1]

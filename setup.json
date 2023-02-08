@@ -26,7 +26,8 @@
             "float = aiida_python.serializers:SerializerFloat",
             "str = aiida_python.serializers:SerializerStr",
             "list = aiida_python.serializers:SerializerList",
-            "arraydata = aiida_python.serializers:SerializerArrayData"
+            "arraydata = aiida_python.serializers:SerializerArrayData",
+            "aiida_python.gol.system = example.gol.serializer:SerializerGOLSystem"
         ],
         "aiida.data": [
             "aiida_python.gol.system = example.gol.system:GOLSystem"

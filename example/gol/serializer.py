@@ -1,11 +1,12 @@
 from aiida_python import Serializer
 from aiida.plugins import DataFactory
 
-class SerializerInt(Serializer):
+class SerializerGOLSystem(Serializer):
 
     @classmethod
     def baukis(cls):
-        return np.array
+        import numpy as np
+        return np.ndarray
 
     @classmethod
     def philemon(cls):

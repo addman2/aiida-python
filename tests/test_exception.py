@@ -15,12 +15,15 @@ class ClassThatCannotStartWithTestException(CalcJobPython):
         self.outputs.ovca = 0
         raise Exception("ijo ike")
 
-def test_simple_code_exception(aiida_local_code_factory, clear_database):
+def test_simple_code_exception(aiida_local_code_factory, clear_database, entry_points):
     from aiida.plugins import CalculationFactory
     from aiida.engine import run
 
     executable = 'python3'
     entry_point = 'test.calc_exception'
+    group = 'aiida.calculations'
+
+    entry_points.add(ClassThatCannotStartWithTestException, f"{group}:{entry_point}")
 
     code = aiida_local_code_factory(entry_point=entry_point, executable=executable)
     calculation = CalculationFactory(entry_point)

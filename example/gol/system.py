@@ -16,3 +16,7 @@ class GOLSystem(Data):
 
         array = [[bool(array[ii, jj]) for ii in range(array.shape[0])] for jj in range(array.shape[1])]
         self.set_attribute("array", array)
+
+    def as_array(self):
+        return self.get_attribute("array")
+

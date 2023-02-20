@@ -16,7 +16,8 @@
     "entry_points": {
         "aiida.calculations": [
             "aiida_python.calc = aiida_python.calc:CalcJobPython",
-            "aiida_python.example.calc_diag = example.test_diagonalization:ClassThatCannotStartWithTestLastTime"
+            "aiida_python.example.calc_diag = example.test_diagonalization:ClassThatCannotStartWithTestLastTime",
+            "aiida_python.example.goleval = example.gol.goleval:GOLEval"
         ],
         "aiida.parsers": [
             "aiida_python.parser = aiida_python.parser:ParserPython"
@@ -26,7 +27,11 @@
             "float = aiida_python.serializers:SerializerFloat",
             "str = aiida_python.serializers:SerializerStr",
             "list = aiida_python.serializers:SerializerList",
-            "arraydata = aiida_python.serializers:SerializerArrayData"
+            "arraydata = aiida_python.serializers:SerializerArrayData",
+            "aiida_python.gol.system = example.gol.serializer:SerializerGOLSystem"
+        ],
+        "aiida.data": [
+            "aiida_python.gol.system = example.gol.system:GOLSystem"
         ]
     },
     "include_package_data": true,

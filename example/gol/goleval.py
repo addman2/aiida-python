@@ -1,5 +1,7 @@
 import numpy as np
-from aiida.orm import Int
+from aiida.orm import ( Int,
+                        List,
+                      )
 from aiida.plugins import ( CalculationFactory,
                             DataFactory,
                           )
@@ -15,9 +17,11 @@ class GOLEval(CalcJobPython):
 
         spec.input('input_system', valid_type=GolSystem)
         spec.input('steps', valid_type=Int)
+        spec.input('survive', valid_type=List, default = lambda: List([2,3]))
+        spec.input('born', valid_type=List, default = lambda: List([3]))
         spec.output('output_system', valid_type=GolSystem)
 
-        spec.inputs['metadata']['options']['serializers'].default = ["int", "aiida_python.gol.system"]
+        spec.inputs['metadata']['options']['serializers'].default = ["int", "list", "aiida_python.gol.system"]
 
 
     def run_python(self):
@@ -39,9 +43,9 @@ class GOLEval(CalcJobPython):
 
                     # Apply the rules of the Game of Life to determine the next state of the cell
                     if array[i, j]:
-                        next_array[i, j] = num_neighbors == 2 or num_neighbors == 3
+                        next_array[i, j] = num_neighbors in self.survive
                     else:
-                        next_array[i, j] = num_neighbors == 3
+                        next_array[i, j] = num_neighbors in self.born
 
             # Return the next state of the array
             return next_array

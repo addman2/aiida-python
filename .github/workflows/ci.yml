@@ -19,7 +19,7 @@ jobs:
   
       - name: Install code
         run: |
-          pip install .[test]
+          pip install .[testing]
   
       - name: Test code
         run: |

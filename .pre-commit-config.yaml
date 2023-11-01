@@ -19,8 +19,8 @@ repos:
     name: yapf
     args: ["-i"]
 
-- repo: local
-  hooks:
+    #- repo: local
+    #hooks:
 
 #  - id: version-number
 #    name: Check version numbers

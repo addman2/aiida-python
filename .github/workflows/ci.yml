@@ -23,4 +23,4 @@ jobs:
   
       - name: Test code
         run: |
-          verdi --version
+          pytest -s .

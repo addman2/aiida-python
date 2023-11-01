@@ -1,28 +1,32 @@
+# -*- coding: utf-8 -*-
 import numpy as np
-from aiida.orm import ( Int,
-                        List,
-                      )
-from aiida.plugins import ( CalculationFactory,
-                            DataFactory,
-                          )
+from aiida.orm import (
+    Int,
+    List,
+)
+from aiida.plugins import (
+    CalculationFactory,
+    DataFactory,
+)
 
-CalcJobPython = CalculationFactory("aiida_python.calc")
-GolSystem = DataFactory("aiida_python.gol.system")
+CalcJobPython = CalculationFactory('aiida_python.calc')
+GolSystem = DataFactory('aiida_python.gol.system')
+
 
 class GOLEval(CalcJobPython):
-
     @classmethod
     def define(cls, spec):
         super().define(spec)
 
         spec.input('input_system', valid_type=GolSystem)
         spec.input('steps', valid_type=Int)
-        spec.input('survive', valid_type=List, default = lambda: List([2,3]))
-        spec.input('born', valid_type=List, default = lambda: List([3]))
+        spec.input('survive', valid_type=List, default=lambda: List([2, 3]))
+        spec.input('born', valid_type=List, default=lambda: List([3]))
         spec.output('output_system', valid_type=GolSystem)
 
-        spec.inputs['metadata']['options']['serializers'].default = ["int", "list", "aiida_python.gol.system"]
-
+        spec.inputs['metadata']['options']['serializers'].default = [
+            'int', 'list', 'aiida_python.gol.system'
+        ]
 
     def run_python(self):
 
@@ -39,7 +43,10 @@ class GOLEval(CalcJobPython):
             for i in range(num_rows):
                 for j in range(num_cols):
                     # Count the number of live neighbors for the current cell
-                    num_neighbors = np.sum(array[max(0, i-1):min(i+2, num_rows), max(0, j-1):min(j+2, num_cols)]) - array[i, j]
+                    num_neighbors = np.sum(
+                        array[max(0, i - 1):min(i + 2, num_rows),
+                              max(0, j - 1):min(j + 2, num_cols)]) - array[i,
+                                                                           j]
 
                     # Apply the rules of the Game of Life to determine the next state of the cell
                     if array[i, j]:
@@ -54,4 +61,3 @@ class GOLEval(CalcJobPython):
         for ii in range(self.inputs.steps):
             array = _do_step(np.array(array))
         self.outputs.output_system = np.array(array)
-

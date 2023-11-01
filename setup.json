@@ -39,12 +39,13 @@
     "setup_requires": ["reentry"],
     "reentry_register": true,
     "install_requires": [
-        "aiida-core>=2.1.0",
-	"pytest",
-	"pgtest"
+        "aiida-core>=2.1.0"
     ],
     "extras_require": {
         "testing": [
+	    "pytest",
+	    "pgtest",
+	    "Pillow>=8.1.2"
         ],
         "pre-commit": [
         ],

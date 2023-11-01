@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import pathlib
+import pytest
 
 TEST_DIR = pathlib.Path(__file__).resolve().parent
 """
@@ -8,6 +9,7 @@ Test goleval
 """
 
 
+@pytest.mark.filterwarnings('ignore:Creating AiiDA')
 def test_GOLEval_1(aiida_local_code_factory, clear_database, entry_points):
 
     import numpy as np
@@ -16,8 +18,8 @@ def test_GOLEval_1(aiida_local_code_factory, clear_database, entry_points):
     from aiida.plugins import CalculationFactory
     from aiida.plugins import DataFactory
 
-    calc_entry_point = 'aiida_python.example.goleval'
-    data_entry_point = 'aiida_python.gol.system'
+    calc_entry_point = 'aiida-python.example.goleval'
+    data_entry_point = 'aiida-python.gol.system'
     executable = 'python3'
 
     goleval = CalculationFactory(calc_entry_point)
@@ -46,8 +48,8 @@ def test_GOLEval_2(aiida_local_code_factory, clear_database, entry_points):
     from aiida.plugins import CalculationFactory
     from aiida.plugins import DataFactory
 
-    calc_entry_point = 'aiida_python.example.goleval'
-    data_entry_point = 'aiida_python.gol.system'
+    calc_entry_point = 'aiida-python.example.goleval'
+    data_entry_point = 'aiida-python.gol.system'
     executable = 'python3'
 
     goleval = CalculationFactory(calc_entry_point)
@@ -83,8 +85,8 @@ def test_GOLEval_3(aiida_local_code_factory, clear_database, entry_points):
     from aiida.plugins import CalculationFactory
     from aiida.plugins import DataFactory
 
-    calc_entry_point = 'aiida_python.example.goleval'
-    data_entry_point = 'aiida_python.gol.system'
+    calc_entry_point = 'aiida-python.example.goleval'
+    data_entry_point = 'aiida-python.gol.system'
     executable = 'python3'
 
     goleval = CalculationFactory(calc_entry_point)
@@ -120,8 +122,8 @@ def test_GOLEval_4(aiida_local_code_factory, clear_database, entry_points):
     from aiida.plugins import CalculationFactory
     from aiida.plugins import DataFactory
 
-    calc_entry_point = 'aiida_python.example.goleval'
-    data_entry_point = 'aiida_python.gol.system'
+    calc_entry_point = 'aiida-python.example.goleval'
+    data_entry_point = 'aiida-python.gol.system'
     executable = 'python3'
 
     goleval = CalculationFactory(calc_entry_point)
@@ -195,8 +197,8 @@ def test_GOLEval_5(aiida_local_code_factory, clear_database, entry_points):
     from aiida.plugins import CalculationFactory
     from aiida.plugins import DataFactory
 
-    calc_entry_point = 'aiida_python.example.goleval'
-    data_entry_point = 'aiida_python.gol.system'
+    calc_entry_point = 'aiida-python.example.goleval'
+    data_entry_point = 'aiida-python.gol.system'
     executable = 'python3'
 
     goleval = CalculationFactory(calc_entry_point)
@@ -237,8 +239,8 @@ def test_GOLEval_6(aiida_local_code_factory, clear_database, entry_points):
     from aiida.plugins import CalculationFactory
     from aiida.plugins import DataFactory
 
-    calc_entry_point = 'aiida_python.example.goleval'
-    data_entry_point = 'aiida_python.gol.system'
+    calc_entry_point = 'aiida-python.example.goleval'
+    data_entry_point = 'aiida-python.gol.system'
     executable = 'python3'
 
     goleval = CalculationFactory(calc_entry_point)
@@ -302,8 +304,8 @@ def test_GOLEval_7(aiida_local_code_factory, clear_database, entry_points):
     from aiida.plugins import DataFactory
     from PIL import Image
 
-    calc_entry_point = 'aiida_python.example.goleval'
-    data_entry_point = 'aiida_python.gol.system'
+    calc_entry_point = 'aiida-python.example.goleval'
+    data_entry_point = 'aiida-python.gol.system'
     executable = 'python3'
 
     goleval = CalculationFactory(calc_entry_point)

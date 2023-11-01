@@ -48,6 +48,8 @@
 	    "Pillow>=8.1.2"
         ],
         "pre-commit": [
+	    "pre-commit~=2.2",
+            "pylint>=2.5.0,<2.9"
         ],
         "docs": [
         ]

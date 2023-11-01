@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-
 """
 Test serializers
 """
+
 
 def test_SerializerInt():
 
@@ -30,6 +30,7 @@ def test_SerializerInt():
 
     assert ans == 2.0
 
+
 def test_SerializerFloat():
 
     from aiida.orm import Int
@@ -56,6 +57,7 @@ def test_SerializerFloat():
 
     assert ans == 2
 
+
 def test_SerializerStr():
 
     from aiida.orm import Int
@@ -63,7 +65,7 @@ def test_SerializerStr():
 
     from aiida_python import SerializerStr
 
-    message = "Anitta DUMU Pithaana LUGAL Kuusara QIBI"
+    message = 'Anitta DUMU Pithaana LUGAL Kuusara QIBI'
     obj = Str(message)
     ans = SerializerStr.serialize(obj)
 
@@ -83,6 +85,7 @@ def test_SerializerStr():
 
     assert ans == 2
 
+
 def test_SerializerList():
 
     import functools
@@ -99,7 +102,8 @@ def test_SerializerList():
     assert isinstance(ans, list)
 
     # o linja mute mute
-    assert functools.reduce(lambda x, y : x and y, map(lambda p, q: p == q,l,ans), True)
+    assert functools.reduce(lambda x, y: x and y,
+                            map(lambda p, q: p == q, l, ans), True)
 
     obj = Int(2)
     ans = SerializerList.serialize(obj)
@@ -114,6 +118,7 @@ def test_SerializerList():
 
     assert ans == 2
 
+
 def test_SerializerArrayData():
 
     import functools
@@ -124,9 +129,9 @@ def test_SerializerArrayData():
 
     from aiida_python import SerializerArrayData
 
-    a = np.array([[1,2],[3,4]])
+    a = np.array([[1, 2], [3, 4]])
     obj = ArrayData()
-    obj.set_array("only_one", a)
+    obj.set_array('only_one', a)
     ans = SerializerArrayData.serialize(obj)
 
     assert isinstance(ans, np.ndarray)

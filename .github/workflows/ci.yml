@@ -24,7 +24,7 @@ jobs:
   
       - name: Install code
         run: |
-          pip install .[testing]
+          pip install .[testing, pre-commit]
   
       - name: Test code
         run: |

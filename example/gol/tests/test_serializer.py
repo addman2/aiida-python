@@ -12,9 +12,9 @@ def test_SerializerGOL(aiida_local_code_factory, clear_database, entry_points):
     from aiida.orm import Int
     from aiida.orm import ArrayData
 
-    serializer = entry_points.eps().select(
+    serializer = tuple(entry_points.eps().select(
         group='aiida_python.serializers',
-        name='aiida_python.gol.system')[0].load()
+        name='aiida_python.gol.system'))[0].load()
 
     obj = serializer.deserialize(np.array([[True, True], [True, False]]))
     array = serializer.serialize(obj)

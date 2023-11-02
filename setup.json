@@ -17,7 +17,6 @@
         "aiida.calculations": [
             "aiida-python.calc = aiida_python.calc:CalcJobPython",
             "aiida-python.example.calc_diag = example.test_diagonalization:ClassThatCannotStartWithTestLastTime",
-            "aiida-python.example.goleval = example.gol.goleval:GOLEval",
             "aiida-python.example.gpeval = example.dmc_optimize.gpeval:GPEval"
         ],
         "aiida.parsers": [
@@ -31,7 +30,6 @@
             "arraydata = aiida_python.serializers:SerializerArrayData"
         ],
         "aiida.data": [
-            "aiida-python.gol.system = example.gol.system:GOLSystem"
         ]
     },
     "include_package_data": true,

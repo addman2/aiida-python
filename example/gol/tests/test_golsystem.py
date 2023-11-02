@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 
 import numpy as np
+import pytest
 from aiida.plugins import DataFactory
+
+from conftest import setup_gol
 
 import pathlib
 
@@ -11,7 +14,9 @@ Test golsystem
 """
 
 
-def test_GOLSystem(aiida_local_code_factory, clear_database):
+@pytest.mark.filterwarnings('ignore:Creating AiiDA')
+@setup_gol
+def test_GOLSystem(aiida_local_code_factory, clear_database, entry_points):
 
     golsystem = DataFactory('aiida-python.gol.system')
     gs = golsystem(np.array([[True, False], [False, False]]))
@@ -23,7 +28,9 @@ def test_GOLSystem(aiida_local_code_factory, clear_database):
     assert gs.attributes['array'][1][1] == False
 
 
-def test_GOLSystem_as_array(aiida_local_code_factory, clear_database):
+@pytest.mark.filterwarnings('ignore:Creating AiiDA')
+@setup_gol
+def test_GOLSystem_as_array(aiida_local_code_factory, clear_database, entry_points):
 
     golsystem = DataFactory('aiida-python.gol.system')
     gs = golsystem(np.array([[True, False], [False, False]]))
@@ -37,7 +44,9 @@ def test_GOLSystem_as_array(aiida_local_code_factory, clear_database):
     assert array[1][1] == False
 
 
-def test_GOLSystem_load_from_bitmap(aiida_local_code_factory, clear_database):
+@pytest.mark.filterwarnings('ignore:Creating AiiDA')
+@setup_gol
+def test_GOLSystem_load_from_bitmap(aiida_local_code_factory, clear_database, entry_points):
 
     from PIL import Image
 
@@ -53,8 +62,10 @@ def test_GOLSystem_load_from_bitmap(aiida_local_code_factory, clear_database):
     assert width == 20
 
 
+@pytest.mark.filterwarnings('ignore:Creating AiiDA')
+@setup_gol
 def test_GOLSystem_load_from_bitmap_2(aiida_local_code_factory,
-                                      clear_database):
+                                      clear_database, entry_points):
 
     from PIL import Image
 

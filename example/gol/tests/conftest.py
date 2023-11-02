@@ -13,25 +13,50 @@ def load_class_from_file(file_path, class_name):
     class_obj = getattr(module, class_name)
     return class_obj
 
+def try_to_load(class_name):
+    # Get full path of this file using pathlib
+    for file in pathlib.Path(__file__).parent.parent.absolute().glob('**/*.py'):
+        try:
+            obj = load_class_from_file(file, class_name)
+            obj.__version__ = "0.0.0"
+            return obj
+        except AttributeError:
+            pass
+    return None
+
 def setup_gol(func):
     """Add entry point to the entry_points fixture"""
 
-    # Get full path of this file using pathlib
-    file_path = pathlib.Path(__file__).parent.parent.absolute() / 'serializer.py'
-    SerializerGOLSystem = load_class_from_file(file_path, 'SerializerGOLSystem')
-
     module_name  = sys.modules[__name__].__name__
+
+    entry_data = [ ( "aiida_python.serializers",
+                     "aiida_python.gol.system",
+                     "SerializerGOLSystem",
+                     ),
+                   ( "aiida.data",
+                     "aiida_python.gol.system",
+                     "DataGOLSystem",
+                     ),
+                   ( "aiida.calculations",
+                     "aiida_python.example.goleval",
+                     "GOLEval",
+                     ),
+                 ]
 
     @functools.wraps(func)
     def wrapper(entry_points, *args, **kwargs):
-        sys.modules[__name__].SerializerGOLSystem = SerializerGOLSystem
-        entry_points.add(group='aiida_python.serializers',
-                         name='aiida_python.gol.system',
-                         value=f"{module_name}:SerializerGOLSystem"   )
+        for group, name, object_name in entry_data:
+            obj = try_to_load(object_name)
+            setattr(sys.modules[__name__], object_name, obj)
+            entry_points.add(group=group,
+                             name=name,
+                             value=f"{module_name}:{object_name}"   )
+
         ret = func(*args, entry_points = entry_points, **kwargs)
 
         # Clean up
-        del sys.modules[__name__].SerializerGOLSystem
+        for group, name, object_name in entry_data:
+            delattr(sys.modules[__name__], object_name)
         return ret
 
     return wrapper

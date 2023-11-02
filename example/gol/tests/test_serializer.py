@@ -27,19 +27,11 @@ def test_SerializerGOL(aiida_local_code_factory, clear_database, entry_points):
         entry_points.eps().select(group='aiida_python.serializers',
                                   name='aiida_python.gol.system'))[0].load()
 
-    data = tuple(
-        entry_points.eps().select(group='aiida.data',
-                                  name='aiida_python.gol.system'))[0].load()
+    obj = serializer.deserialize(np.array([[True, True], [True, False]]))
+    array = serializer.serialize(obj)
 
-    DataFactory("aiida.gol.system")
-    from aiida.plugins import load_entry_point
-    load_entry_point("aiida.data", "aiida_python.gol.system")
-
-    #obj = serializer.deserialize(np.array([[True, True], [True, False]]))
-    #array = serializer.serialize(obj)
-
-    #assert array[0][0]
-    #assert array[0][1]
-    #assert array[1][0]
-    #assert not array[1][1]
+    assert array[0][0]
+    assert array[0][1]
+    assert array[1][0]
+    assert not array[1][1]
 

@@ -13,7 +13,6 @@ TEST_DIR = pathlib.Path(__file__).resolve().parent
 Test golsystem
 """
 
-
 @pytest.mark.filterwarnings('ignore:Creating AiiDA')
 @setup_gol
 def test_GOLSystem(aiida_local_code_factory, clear_database, entry_points):

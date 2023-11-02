@@ -58,6 +58,7 @@ class GOLEval(CalcJobPython):
             return next_array
 
         array = self.inputs.input_system
+
         for ii in range(self.inputs.steps):
             array = _do_step(np.array(array))
         self.outputs.output_system = np.array(array)

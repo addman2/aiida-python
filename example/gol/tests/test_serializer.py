@@ -3,7 +3,10 @@
 Test system serializer
 """
 
+import pytest
 
+
+@pytest.mark.filterwarnings('ignore:Creating AiiDA')
 def test_SerializerGOL(aiida_local_code_factory, clear_database, entry_points):
 
     import functools

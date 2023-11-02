@@ -67,7 +67,6 @@ class ParserPython(Parser):
             if m:
                 with self.retrieved.open(m.group(2), 'rb') as fhandle_input:
                     file = SinglefileData(file=fhandle_input)
-                    print(f'Setting {m.group(1)} as {m.group(2)}')
                     self.out(m.group(1), file)
 
         return ExitCode(0)

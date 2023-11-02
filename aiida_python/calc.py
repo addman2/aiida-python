@@ -32,7 +32,7 @@ class CalcJobPython(CalcJob):
                    help='Dont leave this empty')
 
         spec.inputs['metadata']['options'][
-            'parser_name'].default = 'aiida_python.parser'
+            'parser_name'].default = 'aiida-python.parser'
         spec.inputs['metadata']['options'][
             'input_filename'].default = '__noone_will_ever_use_this_name.input'
         spec.inputs['metadata']['options'][

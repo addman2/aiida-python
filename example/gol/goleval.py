@@ -10,13 +10,13 @@ from aiida.plugins import (
 )
 
 CalcJobPython = CalculationFactory('aiida-python.calc')
-GolSystem = DataFactory('aiida-python.gol.system')
 
 
 class GOLEval(CalcJobPython):
     @classmethod
     def define(cls, spec):
         super().define(spec)
+        GolSystem = DataFactory('aiida-python.gol.system')
 
         spec.input('input_system', valid_type=GolSystem)
         spec.input('steps', valid_type=Int)
@@ -58,6 +58,7 @@ class GOLEval(CalcJobPython):
             return next_array
 
         array = self.inputs.input_system
+
         for ii in range(self.inputs.steps):
             array = _do_step(np.array(array))
         self.outputs.output_system = np.array(array)

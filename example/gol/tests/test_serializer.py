@@ -3,10 +3,19 @@
 Test system serializer
 """
 
+import sys
+import pathlib
 import pytest
+import functools
+import importlib
+
+from conftest import setup_gol
+
+from aiida.plugins import DataFactory
 
 
 @pytest.mark.filterwarnings('ignore:Creating AiiDA')
+@setup_gol
 def test_SerializerGOL(aiida_local_code_factory, clear_database, entry_points):
 
     import functools

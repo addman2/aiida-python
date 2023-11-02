@@ -3,13 +3,17 @@
 import pathlib
 import pytest
 
+from conftest import setup_gol
+
 TEST_DIR = pathlib.Path(__file__).resolve().parent
 """
 Test goleval
 """
 
 
-@pytest.mark.filterwarnings('ignore:Creating AiiDA')
+@pytest.mark.filterwarnings('ignore:Creating AiiDA',
+                            'ignore:uknown type string')
+@setup_gol
 def test_GOLEval_1(aiida_local_code_factory, clear_database, entry_points):
 
     import numpy as np
@@ -40,6 +44,9 @@ def test_GOLEval_1(aiida_local_code_factory, clear_database, entry_points):
     assert not array[1][1]
 
 
+@pytest.mark.filterwarnings('ignore:Creating AiiDA',
+                            'ignore:uknown type string')
+@setup_gol
 def test_GOLEval_2(aiida_local_code_factory, clear_database, entry_points):
 
     import numpy as np
@@ -77,6 +84,8 @@ def test_GOLEval_2(aiida_local_code_factory, clear_database, entry_points):
     assert not array[2][2]
 
 
+@pytest.mark.filterwarnings('ignore:Creating AiiDA')
+@setup_gol
 def test_GOLEval_3(aiida_local_code_factory, clear_database, entry_points):
 
     import numpy as np
@@ -114,6 +123,8 @@ def test_GOLEval_3(aiida_local_code_factory, clear_database, entry_points):
     assert not array[2][2]
 
 
+@pytest.mark.filterwarnings('ignore:Creating AiiDA')
+@setup_gol
 def test_GOLEval_4(aiida_local_code_factory, clear_database, entry_points):
 
     import numpy as np
@@ -189,6 +200,8 @@ def test_GOLEval_4(aiida_local_code_factory, clear_database, entry_points):
     assert not array[2][2]
 
 
+@pytest.mark.filterwarnings('ignore:Creating AiiDA')
+@setup_gol
 def test_GOLEval_5(aiida_local_code_factory, clear_database, entry_points):
 
     import numpy as np
@@ -231,6 +244,8 @@ def test_GOLEval_5(aiida_local_code_factory, clear_database, entry_points):
     assert not array[2][2]
 
 
+@pytest.mark.filterwarnings('ignore:Creating AiiDA')
+@setup_gol
 def test_GOLEval_6(aiida_local_code_factory, clear_database, entry_points):
 
     import numpy as np
@@ -295,6 +310,8 @@ def test_GOLEval_6(aiida_local_code_factory, clear_database, entry_points):
     assert array[2][2]
 
 
+@pytest.mark.filterwarnings('ignore:Creating AiiDA')
+@setup_gol
 def test_GOLEval_7(aiida_local_code_factory, clear_database, entry_points):
 
     import numpy as np

@@ -34,11 +34,11 @@ class ParserPython(Parser):
         docs = CalculationFactory(
             self.node.process_type.split(':')[1]).run_python.__doc__
 
-        import pkg_resources
+        from aiida.plugins import entry_point as ep
 
         def deserialize_this(obj):
-            for entry_point in pkg_resources.iter_entry_points(
-                    'aiida_python.serializers'):
+            for entry_point in ep.eps().select(
+                    group='aiida_python.serializers'):
                 if entry_point.name in serializers:
                     obj = entry_point.load().deserialize(obj)
             return obj

@@ -60,11 +60,11 @@ class CalcJobPython(CalcJob):
         """
         """
 
-        import pkg_resources
+        from aiida.plugins import entry_point as ep
 
         def serialize_this(obj):
-            for entry_point in pkg_resources.iter_entry_points(
-                    'aiida_python.serializers'):
+            for entry_point in ep.eps().select(
+                    group='aiida_python.serializers'):
                 if entry_point.name in self.inputs['metadata']['options'][
                         'serializers']:
                     obj = entry_point.load().serialize(obj)

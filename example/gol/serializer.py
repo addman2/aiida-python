@@ -11,7 +11,7 @@ class SerializerGOLSystem(Serializer):
 
     @classmethod
     def philemon(cls):
-        return DataFactory('aiida_python.gol.system')
+        return DataFactory('aiida-python.gol.system')
 
     @classmethod
     def serialize(cls, obj):

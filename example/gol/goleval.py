@@ -9,8 +9,8 @@ from aiida.plugins import (
     DataFactory,
 )
 
-CalcJobPython = CalculationFactory('aiida_python.calc')
-GolSystem = DataFactory('aiida_python.gol.system')
+CalcJobPython = CalculationFactory('aiida-python.calc')
+GolSystem = DataFactory('aiida-python.gol.system')
 
 
 class GOLEval(CalcJobPython):

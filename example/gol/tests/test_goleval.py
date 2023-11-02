@@ -11,7 +11,8 @@ Test goleval
 """
 
 
-@pytest.mark.filterwarnings('ignore:Creating AiiDA', 'ignore:uknown type string')
+@pytest.mark.filterwarnings('ignore:Creating AiiDA',
+                            'ignore:uknown type string')
 @setup_gol
 def test_GOLEval_1(aiida_local_code_factory, clear_database, entry_points):
 
@@ -43,7 +44,8 @@ def test_GOLEval_1(aiida_local_code_factory, clear_database, entry_points):
     assert not array[1][1]
 
 
-@pytest.mark.filterwarnings('ignore:Creating AiiDA', 'ignore:uknown type string')
+@pytest.mark.filterwarnings('ignore:Creating AiiDA',
+                            'ignore:uknown type string')
 @setup_gol
 def test_GOLEval_2(aiida_local_code_factory, clear_database, entry_points):
 

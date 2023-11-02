@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import sys
 import pytest
 import importlib
@@ -5,7 +6,8 @@ import pathlib
 import functools
 
 # This is the dummy version of the plugin
-__version__ = "0.0.0"
+__version__ = '0.0.0'
+
 
 def load_class_from_file(file_path, class_name):
     """Load class from file"""
@@ -16,16 +18,19 @@ def load_class_from_file(file_path, class_name):
     class_obj = getattr(module, class_name)
     return class_obj
 
+
 def try_to_load(class_name):
     # Get full path of this file using pathlib
-    for file in pathlib.Path(__file__).parent.parent.absolute().glob('**/*.py'):
+    for file in pathlib.Path(__file__).parent.parent.absolute().glob(
+            '**/*.py'):
         try:
             obj = load_class_from_file(file, class_name)
-            obj.__version__ = "0.0.0"
+            obj.__version__ = '0.0.0'
             return obj
         except AttributeError:
             pass
-    raise AttributeError(f"Could not find class {class_name}")
+    raise AttributeError(f'Could not find class {class_name}')
+
 
 def setup_gol(func):
     """
@@ -38,21 +43,25 @@ def setup_gol(func):
 
         """
 
-    module_name  = sys.modules[__name__].__name__
+    module_name = sys.modules[__name__].__name__
 
-    entry_data = [ ( "aiida_python.serializers",
-                     "aiida_python.gol.system",
-                     "SerializerGOLSystem",
-                     ),
-                   ( "aiida.data",
-                     "aiida-python.gol.system",
-                     "GOLSystem",
-                     ),
-                   ( "aiida.calculations",
-                     "aiida-python.example.goleval",
-                     "GOLEval",
-                     ),
-                 ]
+    entry_data = [
+        (
+            'aiida_python.serializers',
+            'aiida_python.gol.system',
+            'SerializerGOLSystem',
+        ),
+        (
+            'aiida.data',
+            'aiida-python.gol.system',
+            'GOLSystem',
+        ),
+        (
+            'aiida.calculations',
+            'aiida-python.example.goleval',
+            'GOLEval',
+        ),
+    ]
 
     @functools.wraps(func)
     def wrapper(entry_points, *args, **kwargs):
@@ -62,9 +71,9 @@ def setup_gol(func):
             setattr(sys.modules[__name__], object_name, obj)
             entry_points.add(group=group,
                              name=name,
-                             value=f"{module_name}:{object_name}"   )
+                             value=f'{module_name}:{object_name}')
 
-        ret = func(*args, entry_points = entry_points, **kwargs)
+        ret = func(*args, entry_points=entry_points, **kwargs)
 
         # Clean up
         for group, name, object_name in entry_data:

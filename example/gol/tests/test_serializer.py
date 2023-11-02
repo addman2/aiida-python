@@ -13,6 +13,7 @@ from conftest import setup_gol
 
 from aiida.plugins import DataFactory
 
+
 @pytest.mark.filterwarnings('ignore:Creating AiiDA')
 @setup_gol
 def test_SerializerGOL(aiida_local_code_factory, clear_database, entry_points):
@@ -34,4 +35,3 @@ def test_SerializerGOL(aiida_local_code_factory, clear_database, entry_points):
     assert array[0][1]
     assert array[1][0]
     assert not array[1][1]
-

@@ -77,7 +77,6 @@ class CalcJobPython(CalcJob):
             inp: serialize_this(self.inputs[inp])
             for inp in self.inputs if inp not in ('metadata', 'code')
         }
-
         """
         fixme: Make a warning if something was not serialized
         """

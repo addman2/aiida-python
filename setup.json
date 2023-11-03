@@ -15,9 +15,7 @@
     "version": "0.0.0",
     "entry_points": {
         "aiida.calculations": [
-            "aiida-python.calc = aiida_python.calc:CalcJobPython",
-            "aiida-python.example.calc_diag = example.test_diagonalization:ClassThatCannotStartWithTestLastTime",
-            "aiida-python.example.gpeval = example.dmc_optimize.gpeval:GPEval"
+            "aiida-python.calc = aiida_python.calc:CalcJobPython"
         ],
         "aiida.parsers": [
             "aiida-python.parser = aiida_python.parser:ParserPython"

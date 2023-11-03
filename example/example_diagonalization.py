@@ -86,8 +86,8 @@ def test_diagonalize_hamiltonian(aiida_local_code_factory, clear_database):
 
     # Add entry point
 
-    entry_points.add(group="aiida.calculations",
-                     name="aiida-python.example.calc_diag",
+    entry_points.add(group='aiida.calculations',
+                     name='aiida-python.example.calc_diag',
                      value=ClassThatCannotStartWithTestLastTime)
 
     executable = 'python3'

@@ -1,6 +1,6 @@
 # AiiDA Python
 
-This package allows you to run python code as `CalcJob` on a remote computer. Usage is easy one has to inherit CalcJobPython class and instead of `prepare_for_submition` method one ahs to overload `run_python`. Parser is generated automatically one does not have to write its own.
+This package is an AiiDA plugin allowing you to run python code as `CalcJob` on a remote computer. Usage is easy one has to inherit CalcJobPython class and instead of `prepare_for_submition` method one ahs to overload `run_python`. Parser is generated automatically one does not have to write its own.
 
 
 ```from aiida.orm import (Int, Float, Str, List, ArrayData)
@@ -58,4 +58,3 @@ def test_example(aiida_local_code_factory, clear_database):
     result = run(calculation, **inputs)
 ```
 
-THIS IS IN TESTING STAGE

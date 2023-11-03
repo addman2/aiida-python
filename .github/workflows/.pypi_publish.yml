@@ -1,0 +1,36 @@
+name: Publish on PyPI
+
+on:
+  push:
+    tags:
+      # After vMajor.Minor.Patch _anything_ is allowed (without "/") !
+      - v[0-9]+.[0-9]+.[0-9]+*
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    if: github.repository == 'addman2/aiida-python' && startsWith(github.ref, 'refs/tags/v')
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Upgrade setuptools and install package
+      run: |
+        python -m pip install --upgrade pip setuptools build
+        python -m pip install -e .
+    - name: Assert package version
+      env:
+        TAG_VERSION: ${{ github.ref }}
+      run: python ./.github/check_version.py
+    - name: Build source distribution
+      run: python -m build --sdist --outdir dist/ .
+    - name: List the contents
+      run: ls
+    - name: Publish package to PyPI
+      uses: pypa/gh-action-pypi-publish@master
+      with:
+        password: ${{ secrets.PYPI_API_TOKEN }}

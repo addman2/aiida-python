@@ -55,4 +55,4 @@ jobs:
       - name: Run pre-commit
         run: |
           pre-commit install
-          pre-commit run --all-files
+          pre-commit run --all-files || ( git status --short ; git diff ; exit 1 )

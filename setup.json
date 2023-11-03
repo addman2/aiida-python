@@ -47,6 +47,8 @@
             "pylint>=2.5.0,<2.9"
         ],
         "docs": [
+	    "sphinx",
+	    "sphinx-rtd-theme"
         ]
     }
 }

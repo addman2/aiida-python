@@ -6,19 +6,20 @@ on:
       # After vMajor.Minor.Patch _anything_ is allowed (without "/") !
       - v[0-9]+.[0-9]+.[0-9]+*
 
-build-commit:
-  runs-on: ubuntu-latest
-  timeout-minutes: 15
+jobs:
+  build-commit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
 
-  steps:
-    - name: Checkout
-      uses: actions/checkout@v2
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
 
-    - name: Setup python 3.8
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
+      - name: Setup python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
 
-    - name: Install code
-      run: |
-        pip install .
+      - name: Install code
+        run: |
+          pip install .

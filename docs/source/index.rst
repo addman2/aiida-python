@@ -39,5 +39,3 @@ In addition to the main content, this documentation also provides the following 
 * :ref:`search`
 
 We hope this documentation helps you understand and utilize the AiiDA-Python plugin effectively. If you have any further questions or need assistance, please don't hesitate to ask.
-
-

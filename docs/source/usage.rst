@@ -18,7 +18,7 @@ Assuming you have AiiDA installed and configured, you can then use the
 .. code-block:: console
 
    $ verdi plugin list aiida.calculations
-   
+
    Registered entry points for aiida.calculations:
    * aiida-python.calc
 
@@ -27,7 +27,7 @@ If you need to run tests, you can install the package in editable mode, with tes
 .. code-block:: console
 
    $ pip install -e <path-to-the-source>[testing]
-        
+
 
 Example
 -------

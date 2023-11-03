@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Configuration file for the Sphinx documentation builder.
 #
 # This file only contains a selection of the most common options. For a full
@@ -14,7 +15,6 @@
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
 
-
 # -- Project information -----------------------------------------------------
 
 project = 'AiiDA-Python'
@@ -23,7 +23,6 @@ author = 'Ot(t)o Kohulák'
 
 # The full version, including alpha/beta/rc tags
 release = 'alpha'
-
 
 # -- General configuration ---------------------------------------------------
 
@@ -41,7 +40,6 @@ templates_path = ['_templates']
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = []
-
 
 # -- Options for HTML output -------------------------------------------------
 

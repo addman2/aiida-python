@@ -57,3 +57,5 @@ def test_example(aiida_local_code_factory, clear_database):
 
     result = run(calculation, **inputs)
 ```
+
+For more information look at this [link](https://aiida-python.readthedocs.io/en/latest/).

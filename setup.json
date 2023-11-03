@@ -9,7 +9,7 @@
         "Programming Language :: Python",
         "Intended Audience :: Science/Research",
         "License :: OSI Approved :: MIT License",
-        "Natural Language :: English, Toki Pona, Old Hittite, Transliterated Sumerian ideograms",
+        "Natural Language :: English",
         "Framework :: AiiDA"
     ],
     "version": "0.0.4",

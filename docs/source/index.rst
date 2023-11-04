@@ -14,7 +14,7 @@ Usage of the AiiDA-Python plugin is straightforward. To get started, you need to
 
 It's important to note that the AiiDA-Python plugin is currently in the early stages of development. However, it is actively maintained and continuously improved to provide a reliable and efficient solution for executing Python code on remote computers.
 
-To learn more about using the AiiDA-Python plugin and its capabilities, please refer to the ``usage.rst`` file in this documentation.
+To learn more about using the AiiDA-Python plugin and its capabilities, please refer to the :ref:`usage.rst` file in this documentation.
 
 .. note::
 

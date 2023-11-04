@@ -69,6 +69,41 @@ And therefore the smallest eigenvalue of the original matrix.
 
             self.outputs.value = np.average((H @ vec) / vec)
 
+File Storing
+------------
+
+Very often one wants to use SinglefileData file and directly store the file in the working directory of the code. In ``aiida-python`` there is an easy shortcut to do it with doc strings:
+
+.. code-block:: python
+
+    class ClassThatCannotStartWithTestCopyFile(CalcJobPython):
+        @classmethod
+        def define(cls, spec):
+            super().define(spec)
+
+            spec.input('repeats', valid_type=Int)
+            spec.input('inputfile', valid_type=SinglefileData)
+            spec.output('value', valid_type=Float)
+            spec.output('output', valid_type=SinglefileData)
+
+        def run_python(self):
+            """
+            This is commentary
+
+            This file will be stored in the working directory:
+            !file inputfile: data
+
+            Unset ports will be ignored:
+            !file inputfile2: data2
+
+            Store output
+            !!file output: output
+            """
+
+            # Code comes here
+
+
+
 More Examples
 -------------
 

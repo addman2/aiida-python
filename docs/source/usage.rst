@@ -103,6 +103,11 @@ Very often one wants to use SinglefileData file and directly store the file in t
             # Code comes here
 
 
+Game of Life
+------------
+
+In ``examples/gol/`` there is a special implementaion of Play John Conway's Game of Life.
+
 
 More Examples
 -------------

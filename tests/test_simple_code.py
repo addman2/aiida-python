@@ -2,7 +2,7 @@
 from aiida.orm import (Int, Float, Str, List, ArrayData)
 from aiida.plugins import CalculationFactory
 
-CalcJobPython = CalculationFactory('aiida-python.calc')
+CalcJobPython = CalculationFactory('python.calc')
 
 
 class ClassThatCannotStartWithTestInt(CalcJobPython):

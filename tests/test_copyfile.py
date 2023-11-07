@@ -3,7 +3,7 @@ from aiida.orm import (Int, Float, Str, List, ArrayData, SinglefileData)
 from aiida.plugins import CalculationFactory
 import pytest
 
-CalcJobPython = CalculationFactory('aiida-python.calc')
+CalcJobPython = CalculationFactory('python.calc')
 
 SUCCESS_MSG = 'Succesfull run'
 

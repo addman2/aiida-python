@@ -6,7 +6,7 @@ This package is an AiiDA plugin allowing you to run python code as `CalcJob` on 
 ```from aiida.orm import (Int, Float, Str, List, ArrayData)
 from aiida.plugins import CalculationFactory
 
-CalcJobPython = CalculationFactory("aiida_python.calc")
+CalcJobPython = CalculationFactory("python.calc")
 
 class ClassThatCannotStartWithTestExample(CalcJobPython):
 

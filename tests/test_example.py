@@ -3,7 +3,7 @@ from aiida.orm import (Int, Float, Str, List, ArrayData)
 from aiida.plugins import CalculationFactory
 import pytest
 
-CalcJobPython = CalculationFactory('aiida-python.calc')
+CalcJobPython = CalculationFactory('python.calc')
 
 
 class ClassThatCannotStartWithTestExample(CalcJobPython):

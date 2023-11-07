@@ -5,7 +5,7 @@ from aiida.engine import calcfunction
 import pytest
 import numpy as np
 
-CalcJobPython = CalculationFactory('aiida-python.calc')
+CalcJobPython = CalculationFactory('python.calc')
 
 
 class ClassThatCannotStartWithTestLastTime(CalcJobPython):
@@ -87,11 +87,11 @@ def test_diagonalize_hamiltonian(aiida_local_code_factory, clear_database):
     # Add entry point
 
     entry_points.add(group='aiida.calculations',
-                     name='aiida-python.example.calc_diag',
+                     name='python.example.calc_diag',
                      value=ClassThatCannotStartWithTestLastTime)
 
     executable = 'python3'
-    entry_point = 'aiida-python.example.calc_diag'
+    entry_point = 'python.example.calc_diag'
 
     code = aiida_local_code_factory(entry_point=entry_point,
                                     executable=executable)

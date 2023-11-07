@@ -9,7 +9,7 @@ from aiida.plugins import (
     DataFactory,
 )
 
-CalcJobPython = CalculationFactory('aiida-python.calc')
+CalcJobPython = CalculationFactory('python.calc')
 
 
 class GOLEval(CalcJobPython):

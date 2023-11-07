@@ -15,10 +15,10 @@
     "version": "0.0.6",
     "entry_points": {
         "aiida.calculations": [
-            "aiida-python.calc = aiida_python.calc:CalcJobPython"
+            "python.calc = aiida_python.calc:CalcJobPython"
         ],
         "aiida.parsers": [
-            "aiida-python.parser = aiida_python.parser:ParserPython"
+            "python.parser = aiida_python.parser:ParserPython"
         ],
         "aiida_python.serializers": [
             "int = aiida_python.serializers:SerializerInt",

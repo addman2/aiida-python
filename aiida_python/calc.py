@@ -101,9 +101,9 @@ class CalcJobPython(CalcJob):
         import inspect
         import textwrap
         source_code, _ = inspect.getsourcelines(run_python)
-        source_code = "".join(source_code)
+        source_code = ''.join(source_code)
         source_code = textwrap.dedent(source_code)
-        source_code = source_code.split("\n")
+        source_code = source_code.split('\n')
         print(source_code)
         """
         Unindent the source code
@@ -114,9 +114,11 @@ class CalcJobPython(CalcJob):
 
         #source_code = [ l[4:-1] for l in source_code ]
         source_code = [
-            'import os', 'os.system("mkdir ihyh")',
+            'import os',
+            'os.system("mkdir ihyh")',
             'os.system("echo \'from .ihyh import IHideYouHolder\' > ihyh/__init__.py")',
-            'os.system("cp ihyh.py ihyh")', 'from ihyh import IHideYouHolder',
+            'os.system("cp ihyh.py ihyh")',
+            'from ihyh import IHideYouHolder',
         ] + source_code
 
         arguments = f'infile="{INFILE}", outfile="{OUTFILE}"'

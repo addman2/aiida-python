@@ -1,9 +1,21 @@
 # -*- coding: utf-8 -*-
-
 """
 Test system serializer
 """
 
+import sys
+import pathlib
+import pytest
+import functools
+import importlib
+
+from conftest import setup_gol
+
+from aiida.plugins import DataFactory
+
+
+@pytest.mark.filterwarnings('ignore:Creating AiiDA')
+@setup_gol
 def test_SerializerGOL(aiida_local_code_factory, clear_database, entry_points):
 
     import functools
@@ -12,9 +24,11 @@ def test_SerializerGOL(aiida_local_code_factory, clear_database, entry_points):
     from aiida.orm import Int
     from aiida.orm import ArrayData
 
-    serializer = entry_points.eps().select(group="aiida_python.serializers", name="aiida_python.gol.system")[0].load()
+    serializer = tuple(
+        entry_points.eps().select(group='aiida_python.serializers',
+                                  name='aiida_python.gol.system'))[0].load()
 
-    obj = serializer.deserialize(np.array([[True,True],[True,False]]))
+    obj = serializer.deserialize(np.array([[True, True], [True, False]]))
     array = serializer.serialize(obj)
 
     assert array[0][0]

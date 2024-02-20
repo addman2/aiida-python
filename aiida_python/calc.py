@@ -86,14 +86,17 @@ class CalcJobPython(CalcJob):
         docs = run_python.__doc__
         self._process_docs(folder, docs)
         import inspect
+        import textwrap
         source_code, _ = inspect.getsourcelines(run_python)
+        source_code = "".join(source_code)
+        source_code = textwrap.dedent(source_code)
+        source_code = source_code.split("\n")
+        print(source_code)
         """
         Unindent the source code
 
-        TODO: Do it properly
+        TODO: Do it properly with ast
 
-        There is indent of the code the 'if True:'
-        statement fixes unexpected indent.
         """
 
         #source_code = [ l[4:-1] for l in source_code ]
@@ -101,8 +104,7 @@ class CalcJobPython(CalcJob):
                        'os.system("mkdir ihyh")',
                        'os.system("echo \'from .ihyh import IHideYouHolder\' > ihyh/__init__.py")',
                        'os.system("cp ihyh.py ihyh")',
-                       'from ihyh import IHideYouHolder',
-                       'if True:'] + source_code
+                       'from ihyh import IHideYouHolder'] + source_code
 
         arguments = f'infile="{INFILE}", outfile="{OUTFILE}"'
         runline = f"run_python(IHideYouHolder({arguments}))"

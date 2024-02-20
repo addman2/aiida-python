@@ -6,6 +6,7 @@
     "url": "https://todo.nothing/",
     "license": "MIT",
     "classifiers": [
+	"Development Status :: 4 - Beta",
         "Programming Language :: Python",
         "Intended Audience :: Science/Research",
         "License :: OSI Approved :: MIT License",
